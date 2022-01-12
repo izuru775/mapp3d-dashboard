@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/izuru775/threejs-object-mapping-backend#readme",
   "dependencies": {
+    "aws-sdk": "^2.1055.0",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -26,6 +27,8 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
     "mongoose": "^6.1.2",
+    "multer": "^1.4.4",
+    "multer-s3": "^2.10.0",
     "path": "^0.12.7"
   }
 }
