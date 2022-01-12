@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const express = require('express');
 const path = require('path');
 const connectDB = require('./dbConnect');
-const indexRoute = require('./routes/projects')
+const routes = require('./routes')
 var expressLayouts = require('express-ejs-layouts');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -38,7 +38,8 @@ app.use((req,res,next)=>{
     next()
   })
   
-app.use("/api",indexRoute);
+app.use("/api", routes.projectService);
+app.use("/aws", routes.AWS);
 
 app.use((req,res,next)=>{
     res.status(404).sendFile(path.join(__dirname,'public','404.html'));
@@ -47,5 +48,5 @@ app.use((req,res,next)=>{
 connectDB();
 const PORT = process.env.PORT || 3001;
 app.listen(PORT,()=>{  
-    console.log(`Server listning on ${PORT}`)
+    console.log(`Server listening on ${PORT}`)
 });

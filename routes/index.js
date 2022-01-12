@@ -1,3 +1,4 @@
-module.exports ={
-    projectService:require('./projects')
-}
+module.exports = {
+    projectService: require("./projects"),
+    AWS: require(`./aws`),
+};
