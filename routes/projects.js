@@ -53,6 +53,9 @@ router.get('/miami',(req,res)=>{
 router.get('/createEnvironment',(req,res)=>{
     res.render('createEnvironment',{title:'Create Environment'})
 })
+router.get('/environmentLayout',(req,res)=>{
+    res.render('environmentLayout',{title:'Environment Layout'})
+})
 router.get('/editEnvironment',(req,res)=>{
     res.render('editEnvironment',{title:'Edit Environment '})
 })
