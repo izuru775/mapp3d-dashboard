@@ -14,34 +14,9 @@
         </div>
     </div>
 
-    <div id="outer_wrapper" style=" overflow: auto; width:100%;">
-        <div id="inner_wrapper" style="width:4000px;">
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 20px; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 0; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 0; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>           
-        </div>
-    </div>
+
+    <div id="outer_wrapper" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
+
 
     <div class="col s12 m6 right-align">
         <!-- Modal Structure -->
@@ -61,13 +36,13 @@
                     </div>
                     <div class="col s10">
                         <p class="left-align" style="margin-top:10px">Environment Name: </p>
-                        <input type="text" class="form-control border border-dark rounded" id="input1"
+                        <input type="text" class="form-control border border-dark rounded" id="Env-name"
                             placeholder=" Text">
                     </div>
                     <div>
                         <form action="#">
                             <div class="file-field input-field">
-                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded-circle">
+                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
                                     <span>Upload</span>
                                     <input type="file" multiple>
                                 </div>
@@ -77,8 +52,8 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="waves-effect waves-light btn-large modal-trigger rounded-circle"
-                            style="margin-right:20px" href="#!">Save</a>
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" href="#!" onclick="getValueInput()" >Save</a>
                     </div>
                 </div>
             </div>
@@ -89,7 +64,6 @@
 
     </div>
 </div>
-
 
 
 <div>
@@ -105,45 +79,7 @@
         </div>
     </div>
 
-    <!--
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-image">
-                <img src="/images/foresthouse.png" alt="foresthouse" />
-            </div>
-        </div>
-        <h6 class="center-align">Forest house</h6>
-    </div>
-    -->
-
-    <div id="outer_wrapper" style=" overflow: auto; width:100%;">
-        <div id="inner_wrapper" style="width:4000px;">
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 20px; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 0; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>
-            <div class="box" style="width: 300px; height:200px; float: left; margin: 0 20px 0 0; ">
-                <div class="card" >
-                    <div class="card-image">
-                        <img src="/images/foresthouse.png" alt="foresthouse" />
-                    </div>
-                </div>
-                <h6 class="center-align">Forest house</h6>
-            </div>           
-        </div>
-    </div>
+    <div id="outer_wrapper" class="outer_wrapper" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
 
     <div class="section"></div>
     <div class="col s12 m6 right-align">
@@ -170,7 +106,7 @@
                     <div>
                         <form action="#">
                             <div class="file-field input-field">
-                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded-circle">
+                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
                                     <span>Upload</span>
                                     <input type="file" multiple>
                                 </div>
@@ -180,7 +116,7 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="waves-effect waves-light btn-large modal-trigger rounded-circle"
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
                             style="margin-right:20px" href="#!">Save</a>
                     </div>
                 </div>
@@ -200,14 +136,21 @@
         var elems = document.querySelectorAll(".modal");
         var instances = M.Modal.init(elems);
     });
+
+     const obj = ['/images/miami_thumb.png', '/images/foresthouse.png', '/images/360waterfall.png']
+     const title = ['Miami','Forest House', 'water fall'];
+
+     
+     for (i=0 ; i<obj.length ; i++) {
+         var html = '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6></div>'; 
+         $('#outer_wrapper').append(html);
+    }
+
+    for (i=0 ; i<obj.length ; i++) {
+        var html = '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6></div>'; 
+        $('.outer_wrapper').append(html);
+   }
+
+
 </script>
 
-<script>
-    
-    var inputs = document.querySelectorAll('input[type=file]');
-    for(let i=0; i<inputs.length; i++){
-        let file = inputs[i].files[0];
-        //use file
-        console.log(file);
-      }
-</script>

@@ -9,20 +9,8 @@
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-image">
-        <img src="/images/foresthouse.png" alt="foresthouse" /> 
-      </div>
-    </div>
-    <h6 class="center-align">Forest house</h6>
-    <p class="center-align">
-      <label>
-        <input type="checkbox" class="filled-in"  />
-        <span></span>
-      </label>
-    </p>
-  </div>
+  <div id="outer_wrapper" class="select-Env" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
+
 
   <div class="col s12 m6 right-align">
     <!-- Modal Structure -->
@@ -62,7 +50,7 @@
           </div>
   
           <div class="section center-align">
-            <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded-circle">Save</a>
+            <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a>
           </div>
   
         </div>
@@ -86,20 +74,7 @@
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-image">
-        <img src="/images/foresthouse.png" alt="foresthouse" />
-      </div>
-    </div>
-    <h6 class="center-align">Forest house</h6>
-    <p class="center-align">
-      <label>
-        <input type="checkbox" class="filled-in" />
-        <span></span>
-      </label>
-    </p>
-  </div>
+  <div id="outer_wrapper" class="select-Mdl" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
 
   <div class="section"></div>
 </div>
@@ -110,5 +85,20 @@
     var elems = document.querySelectorAll(".modal");
     var instances = M.Modal.init(elems);
   });
+
+
+  const obj = ['/images/miami_thumb.png', '/images/foresthouse.png']
+  const title = ['Miami','Forest House'];
+
+  
+  for (i=0 ; i<obj.length ; i++) {
+      var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="filled-in"  /><span></span></label></p></div>';
+      $('.select-Env').append(html);
+ }
+
+ for (i=0 ; i<obj.length ; i++) {
+  var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="filled-in"  /><span></span></label></p></div>';
+  $('.select-Mdl').append(html);
+}
 </script>
 
