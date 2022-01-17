@@ -3,8 +3,8 @@ const router = express.Router();
 const Controllers = require(`../controllers`);
 
 router.get(`/`, Controllers.Object.getAllObjects);
-router.get(`/objects/:objectName`, Controllers.Object.getNamedObjects);
-router.get(`/object/:id`, Controllers.Object.getObject);
+router.get(`/:objectName`, Controllers.Object.getNamedObjects);
+router.get(`/:id`, Controllers.Object.getObject);
 router.post(`/create`, Controllers.Object.createObject);
 router.patch(`/update/:id`, Controllers.Object.updateObject);
 router.delete(`/delete/:id`, Controllers.Object.deleteObject);

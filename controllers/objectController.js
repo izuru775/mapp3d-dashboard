@@ -7,7 +7,7 @@ const createObject = (req, res) => {
         if (err) {
             res.json({ message: err.message, statusCode: 400 }).status(400);
         } else {
-            res.json({ message: `Successfully created`, data: data, statusCode: 201 }).status(201);
+            res.json({ message: `Successfully created object`, data: data, statusCode: 201 }).status(201);
         }
     });
 };
@@ -18,7 +18,7 @@ const getAllObjects = (req, res) => {
             res.json({ message: err.message, statusCode: 400 }).status(400);
         } else {
             res.json({
-                message: `Successfully retreived objects`,
+                message: `Retreived all objects`,
                 data: objects,
                 statusCode: 200,
             }).status(200);
@@ -33,7 +33,7 @@ const getNamedObjects = (req, res) => {
             res.json({ message: err.message, statusCode: 404 }).status(404);
         } else {
             res.json({
-                message: `Successfully retrieved objects named: ${objectName}`,
+                message: `Retrieved objects named: ${objectName}`,
                 data: objects,
                 statusCode: 200,
             }).status(200);
@@ -48,7 +48,7 @@ const getObject = (req, res) => {
             res.json({ message: err.message, statusCode: 404 }).status(404);
         } else {
             res.json({
-                message: `Succesfully found object with ID: ${objectID}`,
+                message: `Found object with ID: ${objectID}`,
                 data: object,
                 statusCode: 200,
             }).status(200);
