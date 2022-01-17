@@ -41,6 +41,7 @@ app.use((req,res,next)=>{
 app.use("/api", routes.projectService);
 app.use("/aws", routes.AWS);
 app.use("/objects", routes.objects);
+app.use("/environments", routes.environments);
 
 app.use((req,res,next)=>{
     res.status(404).sendFile(path.join(__dirname,'public','404.html'));
