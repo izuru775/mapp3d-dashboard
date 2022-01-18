@@ -1,6 +1,6 @@
 const express = require(`express`);
 const router = express.Router();
-const Controllers = require(`../controllers`);
+const Controllers = require(`../../controllers`);
 
 router.get(`/`, Controllers.Environment.getAllEnvironments);
 router.get(`/:environmentName`, Controllers.Environment.getNamedEnvironments);
