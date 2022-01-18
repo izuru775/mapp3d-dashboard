@@ -47,6 +47,7 @@ app.use("/aws/obj", routes.s3Object);
 app.use("/aws/env", routes.s3Environment);
 app.use("/objects", routes.dbObjects);
 app.use("/environments", routes.dbEnvironments);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Clashing with Swagger-UI
 // app.use((req, res, next) => {
@@ -54,7 +55,7 @@ app.use("/environments", routes.dbEnvironments);
 // });
 
 connectDB();
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);

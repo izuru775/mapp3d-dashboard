@@ -5,7 +5,10 @@ const createEnvironment = (req, res) => {
     let environmentData = req.body;
     Models.Environment.create(environmentData, (err, data) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 400 }).status(400);
+            res.json({
+                message: err.message,
+                statusCode: 400,
+            }).status(400);
         } else {
             res.json({
                 message: `Successfully created environment`,
@@ -19,7 +22,10 @@ const createEnvironment = (req, res) => {
 const getAllEnvironments = (req, res) => {
     Models.Environment.find((err, environments) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 400 }).status(400);
+            res.json({
+                message: err.message,
+                statusCode: 400,
+            }).status(400);
         } else {
             res.json({
                 message: `Retreived all environments`,
@@ -34,7 +40,10 @@ const getNamedEnvironments = (req, res) => {
     let environmentName = req.body.environmentName;
     Models.Environment.find({ environmentName: environmentName }, (err, environments) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 404 }).status(404);
+            res.json({
+                message: err.message,
+                statusCode: 404,
+            }).status(404);
         } else {
             res.json({
                 message: `Retrieved environments named: ${environmentName}`,
@@ -49,7 +58,10 @@ const getEnvironment = (req, res) => {
     let environmentID = req.body.id;
     Models.Environment.findOne({ _id: environmentID }, (err, environment) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 404 }).status(404);
+            res.json({
+                message: err.message,
+                statusCode: 404,
+            }).status(404);
         } else {
             res.json({
                 message: `Found environment with ID: ${environmentID}`,

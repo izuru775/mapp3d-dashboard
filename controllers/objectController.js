@@ -5,9 +5,16 @@ const createObject = (req, res) => {
     let objectData = req.body;
     Models.Object.create(objectData, (err, data) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 400 }).status(400);
+            res.json({
+                message: err.message,
+                statusCode: 400,
+            }).status(400);
         } else {
-            res.json({ message: `Successfully created object`, data: data, statusCode: 201 }).status(201);
+            res.json({
+                message: `Successfully created object`,
+                data: data,
+                statusCode: 201,
+            }).status(201);
         }
     });
 };
@@ -15,7 +22,10 @@ const createObject = (req, res) => {
 const getAllObjects = (req, res) => {
     Models.Object.find((err, objects) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 400 }).status(400);
+            res.json({
+                message: err.message,
+                statusCode: 400,
+            }).status(400);
         } else {
             res.json({
                 message: `Retreived all objects`,
@@ -30,7 +40,10 @@ const getNamedObjects = (req, res) => {
     let objectName = req.body.objectName;
     Models.Object.find({ objectName: objectName }, (err, objects) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 404 }).status(404);
+            res.json({
+                message: err.message,
+                statusCode: 404,
+            }).status(404);
         } else {
             res.json({
                 message: `Retrieved objects named: ${objectName}`,
@@ -45,7 +58,10 @@ const getObject = (req, res) => {
     let objectID = req.body.id;
     Models.Object.findOne({ _id: objectID }, (err, object) => {
         if (err) {
-            res.json({ message: err.message, statusCode: 404 }).status(404);
+            res.json({
+                message: err.message,
+                statusCode: 404,
+            }).status(404);
         } else {
             res.json({
                 message: `Found object with ID: ${objectID}`,
