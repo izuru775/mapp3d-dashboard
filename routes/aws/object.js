@@ -25,22 +25,8 @@ const upload = multer({
     }),
 });
 
-router.get(`/`, (req, res) => {
-    res.sendFile(`public/aws.html`, { root: path.dirname(__dirname) });
-});
-
 // AWS Routes
-router.post(`/uploadObj`, upload.single(`file`), async (req, res, next) => {
-    console.log(req.file);
-    let location = req.file.location;
-    res.json({
-        message: `Successfully uploaded file!`,
-        data: location,
-        statusCode: 200,
-    }).status(200);
-});
-
-router.get(`/listObj`, async (req, res) => {
+router.get(`/list`, async (req, res) => {
     let response = await s3.listObjectsV2({ Bucket: BUCKET }).promise();
     let key = response.Contents.map((item) => item.Key);
     res.json({
@@ -50,13 +36,23 @@ router.get(`/listObj`, async (req, res) => {
     }).status(200);
 });
 
-router.get(`/downloadObj/:filename`, async (req, res) => {
+router.post(`/upload`, upload.single(`file`), async (req, res, next) => {
+    console.log(req.file);
+    let location = req.file.location;
+    res.json({
+        message: `Successfully uploaded file!`,
+        data: location,
+        statusCode: 200,
+    }).status(200);
+});
+
+router.get(`/download/:filename`, async (req, res) => {
     const filename = req.params.filename;
     let file = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
     res.send(file.Body);
 });
 
-router.delete(`/deleteObj/:filename`, async (req, res) => {
+router.delete(`/delete/:filename`, async (req, res) => {
     const filename = req.params.filename;
     await s3.deleteObject({ Bucket: BUCKET, Key: filename }).promise();
     res.json({

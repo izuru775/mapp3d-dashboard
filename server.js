@@ -39,7 +39,8 @@ app.use((req,res,next)=>{
   })
   
 app.use("/api", routes.projectService);
-app.use("/aws", routes.s3Object, routes.s3Environment);
+app.use("/aws/obj", routes.s3Object);
+app.use("/aws/env", routes.s3Environment);
 app.use("/objects", routes.dbObjects);
 app.use("/environments", routes.dbEnvironments);
 
