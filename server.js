@@ -48,9 +48,10 @@ app.use("/aws/env", routes.s3Environment);
 app.use("/objects", routes.dbObjects);
 app.use("/environments", routes.dbEnvironments);
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
-});
+// Clashing with Swagger-UI
+// app.use((req, res, next) => {
+//     res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
+// });
 
 connectDB();
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
