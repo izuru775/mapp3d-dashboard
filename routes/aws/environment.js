@@ -48,13 +48,13 @@ router.post(`/upload`, upload.single(`file`), async (req, res, next) => {
 
 router.get(`/download/:filename`, async (req, res) => {
     const filename = req.params.filename;
-    let file = await s3.getObject({ Bucket: BUCKET, Key: filename }).promise();
+    let file = await s3.getObject({ Bucket: BUCKET, Key: `Environments/${filename}` }).promise();
     res.send(file.Body);
 });
 
 router.delete(`/delete/:filename`, async (req, res) => {
     const filename = req.params.filename;
-    await s3.deleteObject({ Bucket: BUCKET, Key: filename }).promise();
+    await s3.deleteObject({ Bucket: BUCKET, Key: `Environments/${filename}` }).promise();
     res.json({
         message: `Successfully deleted file!`,
         file: filename,
