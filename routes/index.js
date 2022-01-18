@@ -1,5 +1,5 @@
 module.exports = {
     projectService: require("./projects"),
-    Object: require(`./object`),
-    Environment: require(`./environment`)
+    s3Object: require(`./object`),
+    s3Environment: require(`./environment`)
 };
