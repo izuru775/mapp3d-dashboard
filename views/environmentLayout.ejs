@@ -9,7 +9,7 @@
                 Environment</a>
             <!-- Modal Trigger -->
             <a class="waves-effect waves-light btn-large modal-trigger rounded "
-                style="margin-top:40px; margin-left:10px" href="#Upl-Env">Upload
+                style="margin-top:40px; margin-left:10px" href="#Upl-Env" >Upload
                 Environment</a>
         </div>
     </div>
@@ -32,7 +32,7 @@
             <div class="modal-content container ">
                 <div class="row">
                     <div class="col s1">
-                        <img src="/images/foresthouse.png" alt="foresthouse" class="img-fluid">
+                        <img  class="img-fluid" id="disp-img">
                     </div>
                     <div class="col s10">
                         <p class="left-align" style="margin-top:10px">Environment Name: </p>
@@ -43,17 +43,18 @@
                         <form action="#">
                             <div class="file-field input-field">
                                 <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
-                                    <span>Upload</span>
-                                    <input type="file" multiple>
+                                    <span>Choose File</span>
+                                    <input type="file" multiple id="file-inp" >
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text"
-                                        placeholder="Upload one or more files">
+                                    <input class="file-path validate" type="text" placeholder="Upload one or more files" id ="file-wraper">
                                 </div>
                             </div>
                         </form>
                         <a class="waves-effect waves-light btn-large modal-trigger rounded"
-                            style="margin-right:20px" href="#!" onclick="getValueInput()" >Save</a>
+                            style="margin-right:20px" href="#!" id="upl-env">Upload</a>
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" href="#!" onclick="" >Save</a>
                     </div>
                 </div>
             </div>
@@ -96,11 +97,11 @@
             <div class="modal-content container ">
                 <div class="row">
                     <div class="col s1">
-                        <img src="/images/foresthouse.png" alt="foresthouse" class="img-fluid">
+                        <img class="img-fluid" id="disp-img1">
                     </div>
                     <div class="col s10">
                         <p class="left-align" style="margin-top:10px">Model Name: </p>
-                        <input type="text" class="form-control border border-dark rounded" id="input1"
+                        <input type="text" class="form-control border border-dark rounded" id="Mdl-name"
                             placeholder=" Text">
                     </div>
                     <div>
@@ -108,11 +109,11 @@
                             <div class="file-field input-field">
                                 <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
                                     <span>Upload</span>
-                                    <input type="file" multiple>
+                                    <input type="file" multiple id="file-inp1">
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text"
-                                        placeholder="Upload one or more files">
+                                        placeholder="Upload one or more files" id ="file-wraper1">
                                 </div>
                             </div>
                         </form>
@@ -150,6 +151,45 @@
         var html = '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6></div>'; 
         $('.outer_wrapper').append(html);
    }
+
+   let imagen;
+   $('#file-inp').change(()=>{
+    const files = $('#file-inp').prop("files");
+    for (i=0 ; i<files.length ; i++) {
+        if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
+              imagen = URL.createObjectURL(files[i]);
+              console.log(URL.createObjectURL(files[i]));
+              $('#disp-img').attr('src', imagen);
+        }
+    }
+
+
+    $("#upl-env").click(function(){
+
+        let dataUrl1 = "http://ec2-3-25-145-248.ap-southeast-2.compute.amazonaws.com:3001/";
+        let dataUrl = "http://localhost:3001/aws/env/upload"
+        console.log(imagen)
+        $.post(dataUrl,{file:imagen}, function(data, status){
+          alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+    });
+
+    $('#file-inp1').change(()=>{
+    const files = $('#file-inp1').prop("files");
+    for (i=0 ; i<files.length ; i++) {
+        if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
+              const imagen = URL.createObjectURL(files[i]);
+              console.log(URL.createObjectURL(files[i]));
+              $('#disp-img1').attr('src', imagen);
+        }
+    }
+    });
+
+    $("#file-wraper").val('');
+    $("#file-wraper1").val('');
+    $("#Env-name").val('');
+    $("#Mdl-name").val('');
 
 
 </script>

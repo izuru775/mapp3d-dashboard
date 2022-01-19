@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-1 offset-md-3">
       <!-- Modal Trigger -->
-      <a class="waves-effect waves-light btn-large modal-trigger rounded" style="margin-top:40px" href="#Create-Env">Create</a>
+      <a class="waves-effect waves-light btn-large modal-trigger rounded" style="margin-top:40px" href="#Create-Env" onclick="getValueInput()">Create</a>
     </div>
   </div>
 
@@ -23,40 +23,39 @@
       </div>
 
 
-
-      <div class="modal-content container">
-        <div class="row">
-          <div class="col-md-5">
-            <img src="/images/foresthouse.png" alt="foresthouse" class="img-fluid" >
-          </div>
-          <div class="col-md-7"></div>
-          <div class="col s1">
-            <h5 class="left-align">Position </h5>
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
-          </div>
-          <div class="col s3">
-            <h5 class="left-align">Scale </h5>
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
-          </div>
-          <div class="col s3">
-            <h5 class="left-align">Rotation </h5>
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
-            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
-          </div>
+      <div class="All-obj">
+      <!--  <div class="modal-content container" id="Mdl-ctn">
+          <div class="row">
+            <div class="col-md-5" >
+              <img  class="img-fluid" id="obj-img1">
+            </div>
+            <div class="col-md-7"></div>
+            <div class="col s1">
+              <h5 class="left-align">Position </h5>
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+            </div>
+            <div class="col s3">
+              <h5 class="left-align">Scale </h5>
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+            </div>
+            <div class="col s3">
+              <h5 class="left-align">Rotation </h5>
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+              <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+            </div>
+    
+            <div class="section center-align">
+              <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a>
+            </div>
   
-          <div class="section center-align">
-            <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a>
           </div>
-  
-        </div>
-  
+        </div>-->
       </div>
-  
 
       <div class="modal-footer">
       </div>
@@ -92,13 +91,49 @@
 
   
   for (i=0 ; i<obj.length ; i++) {
-      var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="filled-in"  /><span></span></label></p></div>';
+      var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="Env-check"  value="'+title[i]+'" /><span></span></label></p></div>';
       $('.select-Env').append(html);
  }
 
+ $(document).on("change", ".Env-check", function () {
+  $(".Env-check").prop("checked", false);
+  $(this).prop("checked", true);
+});
+
+
+function getValueInput(){
+  //var v = $("#Mdl-ctn").clone();
+  $(".All-obj").empty();
+  $('input[class="Mdl-check"]:checked').each(function(number) {     
+  
+    var html = '<div class="modal-content container" id="Mdl-ctn"><div class="row"><div class="col-md-5" ><img src="'+this.value+'"  class="img-fluid" id="obj-img1"></div><div class="col-md-7"></div><div class="col s1"><h5 class="left-align">Position </h5><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates"></div><div class="col s3"><h5 class="left-align">Scale </h5><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates"></div><div class="col s3"><h5 class="left-align">Rotation </h5><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates"><input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates"></div><div class="section center-align"><a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a></div></div></div>';
+    $(".All-obj").append(html);
+    
+    /*
+    if(number == 0){
+      $("#obj-img1").attr("src", this.value);
+    } 
+    v.appendTo(".All-obj");
+    $("#obj-img1").attr("src", this.value);*/
+
+});
+
+$('input[class="Env-check"]:checked').each(function() {    
+});
+}
+
  for (i=0 ; i<obj.length ; i++) {
-  var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="filled-in"  /><span></span></label></p></div>';
+  var html =  '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6><p class="center-align"><label><input type="checkbox" class="Mdl-check" value="'+obj[i]+'" /><span></span></label></p></div>';
   $('.select-Mdl').append(html);
 }
+
+
+
+$('.Mdl-check').click(function() {
+  $('input[type="checkbox"]:checked').each(function() {    
+      //console.log(this.value);                
+  });
+});
+
 </script>
 
