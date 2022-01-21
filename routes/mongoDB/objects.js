@@ -3,7 +3,7 @@ const router = express.Router();
 const Controllers = require(`../../controllers`);
 
 router.get(`/`, Controllers.Object.getAllObjects);
-router.get(`/:objectName`, Controllers.Object.getNamedObjects);
+router.get(`/search/:objectName`, Controllers.Object.searchObjects);
 router.get(`/:id`, Controllers.Object.getObject);
 router.post(`/create`, Controllers.Object.createObject);
 router.patch(`/update/:id`, Controllers.Object.updateObject);

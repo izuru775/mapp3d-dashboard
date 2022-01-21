@@ -36,8 +36,8 @@ const getAllEnvironments = (req, res) => {
     });
 };
 
-const getNamedEnvironments = (req, res) => {
-    let environmentName = req.body.environmentName;
+const searchEnvironments = (req, res) => {
+    let environmentName = req.params.environmentName;
     Models.Environment.find({ environmentName: environmentName }, (err, environments) => {
         if (err) {
             res.json({
@@ -47,6 +47,7 @@ const getNamedEnvironments = (req, res) => {
         } else {
             res.json({
                 message: `Retrieved environments named: ${environmentName}`,
+                count: environments.length,
                 data: environments,
                 statusCode: 200,
             }).status(200);
@@ -55,7 +56,7 @@ const getNamedEnvironments = (req, res) => {
 };
 
 const getEnvironment = (req, res) => {
-    let environmentID = req.body.id;
+    let environmentID = req.params.id;
     Models.Environment.findOne({ _id: environmentID }, (err, environment) => {
         if (err) {
             res.json({
@@ -73,7 +74,7 @@ const getEnvironment = (req, res) => {
 };
 
 const updateEnvironment = (req, res) => {
-    let environmentID = req.body.id;
+    let environmentID = req.params.id;
     let data = req.body;
     Models.Environment.findByIdAndUpdate(environmentID, { $set: data }, (err, environment) => {
         if (err) {
@@ -92,7 +93,7 @@ const updateEnvironment = (req, res) => {
 };
 
 const deleteEnvironment = (req, res) => {
-    let environmentID = req.body.id;
+    let environmentID = req.params.id;
     Models.Environment.findByIdAndDelete(environmentID, (err, data) => {
         if (err) {
             res.json({
@@ -128,7 +129,7 @@ const deleteAllEnvironments = (req, res) => {
 
 module.exports = {
     createEnvironment,
-    getNamedEnvironments,
+    searchEnvironments,
     getAllEnvironments,
     getEnvironment,
     updateEnvironment,

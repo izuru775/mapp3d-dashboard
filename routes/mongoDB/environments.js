@@ -3,7 +3,7 @@ const router = express.Router();
 const Controllers = require(`../../controllers`);
 
 router.get(`/`, Controllers.Environment.getAllEnvironments);
-router.get(`/:environmentName`, Controllers.Environment.getNamedEnvironments);
+router.get(`/search/:objectName`, Controllers.Environment.searchEnvironments);
 router.get(`/:id`, Controllers.Environment.getEnvironment);
 router.post(`/create`, Controllers.Environment.createEnvironment);
 router.patch(`/update/:id`, Controllers.Environment.updateEnvironment);

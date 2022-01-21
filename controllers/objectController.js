@@ -29,6 +29,7 @@ const getAllObjects = (req, res) => {
         } else {
             res.json({
                 message: `Retreived all objects`,
+                count: objects.length,
                 data: objects,
                 statusCode: 200,
             }).status(200);
@@ -36,8 +37,8 @@ const getAllObjects = (req, res) => {
     });
 };
 
-const getNamedObjects = (req, res) => {
-    let objectName = req.body.objectName;
+const searchObjects = (req, res) => {
+    let objectName = req.params.objectName;
     Models.Object.find({ objectName: objectName }, (err, objects) => {
         if (err) {
             res.json({
@@ -47,6 +48,7 @@ const getNamedObjects = (req, res) => {
         } else {
             res.json({
                 message: `Retrieved objects named: ${objectName}`,
+                count: objects.length,
                 data: objects,
                 statusCode: 200,
             }).status(200);
@@ -55,7 +57,7 @@ const getNamedObjects = (req, res) => {
 };
 
 const getObject = (req, res) => {
-    let objectID = req.body.id;
+    let objectID = req.params.id;
     Models.Object.findOne({ _id: objectID }, (err, object) => {
         if (err) {
             res.json({
@@ -73,7 +75,7 @@ const getObject = (req, res) => {
 };
 
 const updateObject = (req, res) => {
-    let objectID = req.body.id;
+    let objectID = req.params.id;
     let data = req.body;
     Models.Object.findByIdAndUpdate(objectID, { $set: data }, (err, object) => {
         if (err) {
@@ -92,7 +94,7 @@ const updateObject = (req, res) => {
 };
 
 const deleteObject = (req, res) => {
-    let objectID = req.body.id;
+    let objectID = req.params.id;
     Models.Object.findByIdAndDelete(objectID, (err, data) => {
         if (err) {
             res.json({
@@ -128,7 +130,7 @@ const deleteAllObjects = (req, res) => {
 
 module.exports = {
     createObject,
-    getNamedObjects,
+    searchObjects,
     getAllObjects,
     getObject,
     updateObject,

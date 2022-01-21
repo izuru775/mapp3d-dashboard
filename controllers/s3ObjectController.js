@@ -66,8 +66,8 @@ const getObjects = (req, res) => {
             res.json({
                 message: `Failed to get objects`,
                 data: err,
-                statusCode: 404,
-            }).status(404);
+                statusCode: err.statusCode,
+            }).status(err.statusCode);
         });
 };
 

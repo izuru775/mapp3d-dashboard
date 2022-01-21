@@ -1,23 +1,1805 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "My User Project CRUD",
-      "description": "My User Project Application API",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Mapp3D Project CRUD",
+    "description": "Mapp3D Project Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://ec2-3-25-145-248.ap-southeast-2.compute.amazonaws.com:3000"
+    },
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "S3 Objects",
+      "description": "API for 3D objects in the S3 bucket"
+    },
+    {
+      "name": "S3 Environments",
+      "description": "API for environment objects in the S3 bucket"
+    },
+    {
+      "name": "Objects",
+      "description": "API for objects in the MongoDB database"
+    },
+    {
+      "name": "Environments",
+      "description": "API for environments in the MongoDB database"
+    }
+  ],
+  "paths": {
+    "/aws/obj/list/": {
+      "get": {
+        "tags": [
+          "S3 Objects"
+        ],
+        "summary": "Get a list of objects in the S3 bucket",
+        "description": "Gets an array of 3D object files from the S3 bucket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved objects"
+                    },
+                    "objectCount": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "objects": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "filename": "file.gltf",
+                          "url": "https://sample-url.com/file.gltf"
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed to get a list of objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to get objects"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "message": "Error message",
+                          "code": "Error code",
+                          "region": "ap-southeast-2",
+                          "time": "2022-01-18T13:31:52.858Z",
+                          "requestId": "V61QQHGWQ0DYW4A2",
+                          "extendedRequestId": "NL8i85lTmlS5Nk7l6w/YQ",
+                          "statusCode": 403,
+                          "retryable": false,
+                          "retryDelay": 71.69998163350525
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "host": "localhost:3001",
-    "basePath": "/",
-    "tags": [
-      {
-        "name": "Users",
-        "description": "API for users in the system"
+    "/aws/obj/upload/": {
+      "post": {
+        "tags": [
+          "S3 Objects"
+        ],
+        "summary": "Upload a file to the S3 bucket",
+        "description": "Upload a 3D object file to the S3 bucket",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully uploaded file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully uploaded file"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "https://sample-url.com/file.gltf"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "example": "file.gltf"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "schemes": ["http"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"]
+    },
+    "/aws/obj/exist/{filename}": {
+      "get": {
+        "tags": [
+          "S3 Objects"
+        ],
+        "summary": "Check if object exists",
+        "description": "Check if specified object exists in the bucket",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object exists in the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File exists"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "AcceptRanges": "bytes",
+                          "LastModified": "2022-01-19T03:34:53.000Z",
+                          "ContentLength": 23149048,
+                          "ETag": "\"2f8ca2a1a33fefd38399f38acc8a5d57-5\"",
+                          "ContentType": "application/octet-stream",
+                          "Metadata": {}
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Returned: null"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "NotFound"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/obj/download/{filename}": {
+      "get": {
+        "tags": [
+          "S3 Objects"
+        ],
+        "summary": "Download object",
+        "description": "Download object with specified name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Download request successful",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/obj/delete/{filename}": {
+      "delete": {
+        "tags": [
+          "S3 Objects"
+        ],
+        "summary": "Delete object from the bucket",
+        "description": "Delete object from the bucket with specified name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File was successfully deleted from the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted file"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "example": "file.gltf"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File does not exist in the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File does not exist"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/env/list/": {
+      "get": {
+        "tags": [
+          "S3 Environments"
+        ],
+        "summary": "Get a list of environments in the S3 bucket",
+        "description": "Gets an array of environment files from the S3 bucket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved objects"
+                    },
+                    "objectCount": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "objects": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "filename": "file.gltf",
+                          "url": "https://sample-url.com/file.gltf"
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed to get a list of objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to get objects"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "message": "Error message",
+                          "code": "Error code",
+                          "region": "ap-southeast-2",
+                          "time": "2022-01-18T13:31:52.858Z",
+                          "requestId": "V61QQHGWQ0DYW4A2",
+                          "extendedRequestId": "NL8i85lTmlS5Nk7l6w/YQ",
+                          "statusCode": 403,
+                          "retryable": false,
+                          "retryDelay": 71.69998163350525
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/env/upload/": {
+      "post": {
+        "tags": [
+          "S3 Environments"
+        ],
+        "summary": "Upload a file to the S3 bucket",
+        "description": "Upload an environment file to the S3 bucket",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully uploaded file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully uploaded file"
+                    },
+                    "url": {
+                      "type": "string",
+                      "example": "https://sample-url.com/file.gltf"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "example": "file.gltf"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/env/exist/{filename}": {
+      "get": {
+        "tags": [
+          "S3 Environments"
+        ],
+        "summary": "Check if environment exists",
+        "description": "Check if specified environment exists in the bucket",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object exists in the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File exists"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "AcceptRanges": "bytes",
+                          "LastModified": "2022-01-19T03:34:53.000Z",
+                          "ContentLength": 23149048,
+                          "ETag": "\"2f8ca2a1a33fefd38399f38acc8a5d57-5\"",
+                          "ContentType": "application/octet-stream",
+                          "Metadata": {}
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Returned: null"
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "NotFound"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/env/download/{filename}": {
+      "get": {
+        "tags": [
+          "S3 Environments"
+        ],
+        "summary": "Download environment",
+        "description": "Download environment with specified name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Download request successful",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aws/env/delete/{filename}": {
+      "delete": {
+        "tags": [
+          "S3 Environments"
+        ],
+        "summary": "Delete environment from the bucket",
+        "description": "Delete environment from the bucket with specified name",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filename",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File was successfully deleted from the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted file"
+                    },
+                    "filename": {
+                      "type": "string",
+                      "example": "file.gltf"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "File does not exist in the bucket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "File does not exist"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/": {
+      "get": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Get a list of objects",
+        "description": "Get a list of objects in MongoDB",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Retreived all objects"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "objectName": "Object",
+                          "objectURL": "https://sample-url.com",
+                          "scale": "50 50 50",
+                          "rotation": "0 0 0",
+                          "position": "50 0 50",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/create": {
+      "post": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Create new object",
+        "description": "Create a new object in the database",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "objectName": {
+                    "type": "string",
+                    "example": "Name"
+                  },
+                  "objectURL": {
+                    "type": "string",
+                    "example": "https://sample-url.com"
+                  },
+                  "scale": {
+                    "type": "string",
+                    "example": "0 0 0"
+                  },
+                  "rotation": {
+                    "type": "string",
+                    "example": "1 1 1"
+                  },
+                  "position": {
+                    "type": "string",
+                    "example": "2 2 2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created object"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "objectName": "Object",
+                          "objectURL": "https://sample-url-2.com",
+                          "scale": "50 50 50",
+                          "rotation": "0 0 0",
+                          "position": "50 0 50",
+                          "_id": "61e955a3326da9409926565d",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/search/{objectName}": {
+      "get": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Search for objects with the same name",
+        "description": "Get a list of objects with a specified name in MongoDB",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "objectName",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Retreived objects named: Object"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "objectName": "Object",
+                          "objectURL": "https://sample-url.com",
+                          "scale": "50 50 50",
+                          "rotation": "0 0 0",
+                          "position": "50 0 50",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/{id}": {
+      "get": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Get object with ID",
+        "description": "Get a specific object with ID in MongoDB",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Found object with ID: ID"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "objectName": "Object",
+                          "objectURL": "https://sample-url.com",
+                          "scale": "50 50 50",
+                          "rotation": "0 0 0",
+                          "position": "50 0 50",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/update/{id}": {
+      "patch": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Update an object",
+        "description": "Update the details of an object in the database",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "objectName": {
+                    "type": "string",
+                    "example": "Name"
+                  },
+                  "objectURL": {
+                    "type": "string",
+                    "example": "https://sample-url.com"
+                  },
+                  "scale": {
+                    "type": "string",
+                    "example": "0 0 0"
+                  },
+                  "rotation": {
+                    "type": "string",
+                    "example": "1 1 1"
+                  },
+                  "position": {
+                    "type": "string",
+                    "example": "2 2 2"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated object"
+                    },
+                    "updated": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "objectName": "New Name",
+                          "objectURL": "https://sample-url.com",
+                          "scale": "50 50 50",
+                          "rotation": "0 0 0",
+                          "position": "50 0 50"
+                        }
+                      ]
+                    },
+                    "original": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "objectName": "Old Name",
+                          "objectURL": "https://old-sample-url.com",
+                          "scale": "0 0 0",
+                          "rotation": "1 1 1",
+                          "position": "2 2 2"
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Delete an object",
+        "description": "Delete an object with specified ID from the database",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted object: ID"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e9565b1f62aec10ef317bf",
+                          "objectName": "Object",
+                          "objectURL": "https://sample-url.com",
+                          "scale": "0 0 0",
+                          "rotation": "1 1 1",
+                          "position": "2 2 2",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/deleteAll/": {
+      "delete": {
+        "tags": [
+          "Objects"
+        ],
+        "summary": "Delete all objects",
+        "description": "Delete all objects from the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted all objects"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "deletedCount": 1
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/": {
+      "get": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Get a list of environments",
+        "description": "Get a list of environments in MongoDB",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Retreived all environments"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "environmentName": "Object",
+                          "environmentURL": "https://sample-url.com",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/create": {
+      "post": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Create new environment",
+        "description": "Create a new environment in the database",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "environmentName": {
+                    "type": "string",
+                    "example": "Name"
+                  },
+                  "environmentURL": {
+                    "type": "string",
+                    "example": "https://sample-url.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created environment"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "objectName": "Environment",
+                          "objectURL": "https://sample-url-2.com",
+                          "_id": "61e955a3326da9409926565d",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/search/{objectName}": {
+      "get": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Search for environments with the same name",
+        "description": "Get a list of environments with a specified name in MongoDB",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "environmentName",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Retreived environments named: Environment"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "environmentName": "Environment",
+                          "environmentURL": "https://sample-url.com",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/{id}": {
+      "get": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Get environment with ID",
+        "description": "Get a specific environment with ID in MongoDB",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Found environment with ID: ID"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e4f519d450770ffab60d9c",
+                          "objectName": "Environment",
+                          "objectURL": "https://sample-url.com",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/update/{id}": {
+      "patch": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Update an environment",
+        "description": "Update the details of an environment in the database",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "environmentName": {
+                    "type": "string",
+                    "example": "Name"
+                  },
+                  "environmentURL": {
+                    "type": "string",
+                    "example": "https://sample-url.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated environment"
+                    },
+                    "updated": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "environmentName": "New Name",
+                          "environmentURL": "https://sample-url.com"
+                        }
+                      ]
+                    },
+                    "original": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "environmentName": "Old Name",
+                          "environmentURL": "https://old-sample-url.com"
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Delete an environment",
+        "description": "Delete an environment with specified ID from the database",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted environment: ID"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "_id": "61e9565b1f62aec10ef317bf",
+                          "environmentName": "Environment",
+                          "environmentURL": "https://sample-url.com",
+                          "__v": 0
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/environments/deleteAll/": {
+      "delete": {
+        "tags": [
+          "Environments"
+        ],
+        "summary": "Delete all environment",
+        "description": "Delete all environment from the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted all environment"
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": [
+                        {
+                          "deletedCount": 1
+                        }
+                      ]
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 404
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
+}
