@@ -74,7 +74,7 @@
           alert(data.errors);
         } else {
           let url = data.url;
-          console.log(url);
+          
           $('#s3url').val(`${url}`);
           $('#disabled').after(
             '<div class="input-field col s6">' +
@@ -90,10 +90,22 @@
     let env_name = $('#env_name').val();
     let url = $('#s3url').val();
 
+    console.log(url);
+
     let data = {
         environmentName:env_name,
         environmentURL:url
     }
-    fetch('')  
+    console.log(data);
+
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3001/environments/create/",
+        data:data,
+        success:function(response){
+            console.log(response)
+        }
+        
+    })
   });
 </script>
