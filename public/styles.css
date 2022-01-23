@@ -16,7 +16,7 @@ main {
 }
 footer {
   position: relative;
-
+  
   /* negative value of footer height */
   height: 20hv;
   clear: both;
