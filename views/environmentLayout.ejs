@@ -44,7 +44,7 @@
                             <div class="file-field input-field">
                                 <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
                                     <span>Choose File</span>
-                                    <input type="file" multiple id="file-inp" >
+                                    <input type="file" multiple id="file-inp">
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload one or more files" id ="file-wraper">
@@ -152,28 +152,49 @@
         $('.outer_wrapper').append(html);
    }
 
+   
    let imagen;
+   let files;
    $('#file-inp').change(()=>{
-    const files = $('#file-inp').prop("files");
+    files = $('#file-inp').prop("files");
+    console.log(files);
     for (i=0 ; i<files.length ; i++) {
         if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
               imagen = URL.createObjectURL(files[i]);
-              console.log(URL.createObjectURL(files[i]));
+              //console.log(URL.createObjectURL(files[i]));
               $('#disp-img').attr('src', imagen);
         }
     }
 
+    });
 
     $("#upl-env").click(function(){
 
-        let dataUrl1 = "http://ec2-3-25-145-248.ap-southeast-2.compute.amazonaws.com:3001/";
-        let dataUrl = "http://localhost:3001/aws/env/upload"
-        console.log(imagen)
-        $.post(dataUrl, function(imagen, status){
-          alert("Data: " + imagen + "\nStatus: " + status);
-        });
+        let dataUrl = "http://localhost:3001/aws/env/upload";
+        
+        
+        const formData = new FormData();
+        formData.append("file", files[0]);
+
+        var request = new XMLHttpRequest();
+        request.open("POST", dataUrl);
+        request.onload = function(oEvent) {
+            if (request.status == 200) {
+              console.log("Uploaded!");
+              var response = JSON.parse(request.responseText);
+              let url = response.url;
+              console.log(url);
+            } else {
+              console.log("Error " + request.status + " occurred when trying to upload your file.");
+            }
+          };
+        request.send(formData);
+
+
+        //$.post(dataUrl,formData, function(data, status){
+        //  alert("Data: " + data + "\nStatus: " + status);
+        //});
       });
-    });
 
     $('#file-inp1').change(()=>{
     const files = $('#file-inp1').prop("files");
