@@ -64,6 +64,7 @@
     let formData = new FormData();
     formData.append('file', file);
 
+    // SAving files in s3bucket and getting a url back
     fetch('http://localhost:3001/aws/env/upload/', {
       method: 'POST',
       body: formData,
@@ -86,6 +87,7 @@
       });
   });
 
+  // Saving EnvironmentName & EnviornmentURL in DB
   $('#submit').click(function () {
     let env_name = $('#env_name').val();
     let url = $('#s3url').val();
