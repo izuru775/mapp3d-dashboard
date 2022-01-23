@@ -3,7 +3,6 @@ const Models = require(`../models`);
 
 const createEnvironment = (req, res) => {
     let environmentData = req.body;
-    console.log(environmentData);
     Models.Environment.create(environmentData, (err, data) => {
         if (err) {
             res.json({
