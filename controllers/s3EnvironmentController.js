@@ -31,7 +31,6 @@ const extractName = (key) => {
 };
 
 const uploadEnvironment = (req, res) => {
-    console.log(req);
     let filename = extractName(req.file.key);
     let location = req.file.location;
     res.json({
