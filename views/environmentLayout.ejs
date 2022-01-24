@@ -1,113 +1,224 @@
-<div
-  id="form-div"
-  class="container"
-  style="
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-  "
->
-  <form
-    class="upload"
-    style="align-self: center; width: 400px; margin-bottom: 30px"
-  >
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input id="file" type="file" name="uploadFile" required />
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" />
-      </div>
-      <div id="disabled" class="input-field col s12">
-        <input
-          disabled
-          value="S3 Bucket URL"
-          id="s3url"
-          type="url"
-          class="validate"
-        />
-        <label for="disabled"></label>
-      </div>
-      <div>
-        <button
-          class="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-        >
-          Submit S3 Bucket
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-      <button
-        id="submit"
-        class="btn waves-effect waves-light"
-        type="button"
-        name="action"
-      >
-        Submit
-        <i class="material-icons right">send</i>
-      </button>
+<div>
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="right-align">3D Environments</h3>
+        </div>
+        <div class="col-md-4 offset-md-1 ">
+            <a class="waves-effect waves-light btn-large modal-trigger rounded" style="margin-top:40px"
+                href="/api/createEnvironment">Create
+                Environment</a>
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn-large modal-trigger rounded "
+                style="margin-top:40px; margin-left:10px" href="#Upl-Env" >Upload
+                Environment</a>
+        </div>
     </div>
-  </form>
+
+
+    <div id="outer_wrapper" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
+
+
+    <div class="col s12 m6 right-align">
+        <!-- Modal Structure -->
+        <div id="Upl-Env" class="modal ">
+            <div class="modal-footer">
+            </div>
+
+            <div class="modal-content container p-3 mb-2 bg-secondary text-white"">
+          <h2 class=" center-align">Environment</h2>
+            </div>
+
+
+            <div class="modal-content container ">
+                <div class="row">
+                    <div class="col s1">
+                        <img  class="img-fluid" id="disp-img">
+                    </div>
+                    <div class="col s10">
+                        <p class="left-align" style="margin-top:10px">Environment Name: </p>
+                        <input type="text" class="form-control border border-dark rounded" id="Env-name"
+                            placeholder=" Text">
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <form class="upload" style="display: flex; flex-direction: column;">
+                            <div class="file-field input-field">
+                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
+                                    <span>Choose File</span>
+                                    <input type="file" name="uploadFile" multiple id="file-inp" >
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Upload one or more files" id ="file-wraper">
+                                </div>
+                            </div>
+                            <div>
+                                <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" type="submit" id="upl-env">Upload</a>
+                            </div>
+                            <div>
+                                <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                                    style="margin-right:20px" href="#!" onclick="" >Save</a>
+                                </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
 </div>
 
+
+<div>
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="right-align" style="margin-right:50px">3D Models</h3>
+        </div>
+        <div class="col-md-2 offset-md-3">
+            <!-- Modal Trigger -->
+            <a class="waves-effect waves-light btn-large modal-trigger rounded" style="margin-top:40px"
+                href="#Upl-Mdl">Upload
+                3D Models</a>
+        </div>
+    </div>
+
+    <div id="outer_wrapper" class="outer_wrapper" style="  overflow-x: auto; overflow-y: hidden; white-space: nowrap; width:100%;"></div>
+
+    <div class="section"></div>
+    <div class="col s12 m6 right-align">
+        <!-- Modal Structure -->
+        <div id="Upl-Mdl" class="modal ">
+            <div class="modal-footer">
+            </div>
+
+            <div class="modal-content container p-3 mb-2 bg-secondary text-white">
+                <h2 class=" center-align">3D Object</h2>
+            </div>
+
+
+            <div class="modal-content container ">
+                <div class="row">
+                    <div class="col s1">
+                        <img class="img-fluid" id="disp-img1">
+                    </div>
+                    <div class="col s10">
+                        <p class="left-align" style="margin-top:10px">Model Name: </p>
+                        <input type="text" class="form-control border border-dark rounded" id="Mdl-name"
+                            placeholder=" Text">
+                    </div>
+                    <div>
+                        <form action="#">
+                            <div class="file-field input-field">
+                                <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
+                                    <span>Upload</span>
+                                    <input type="file" multiple id="file-inp1">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text"
+                                        placeholder="Upload one or more files" id ="file-wraper1">
+                                </div>
+                            </div>
+                        </form>
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" href="#!">Save</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <script>
-  const uploadForm = document.querySelector('.upload');
+    document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".modal");
+        var instances = M.Modal.init(elems);
+    });
 
-  uploadForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    let file = e.target.uploadFile.files[0];
+     const obj = ['/images/miami_thumb.png', '/images/foresthouse.png', '/images/360waterfall.png']
+     const title = ['Miami','Forest House', 'water fall'];
 
-    let formData = new FormData();
-    formData.append('file', file);
-
-    // SAving files in s3bucket and getting a url back
-    fetch('http://localhost:3001/aws/env/upload/', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.errors) {
-          alert(data.errors);
-        } else {
-          let url = data.url;
-          
-          $('#s3url').val(`${url}`);
-          $('#disabled').after(
-            '<div class="input-field col s6">' +
-              '<input required id="env_name" type="text" class="validate"/>' +
-              '<label for="env_name">Environment Name</label>' +
-              '</div>'
-          );
-        }
-      });
-  });
-
-  // Saving EnvironmentName & EnviornmentURL in DB
-  $('#submit').click(function () {
-    let env_name = $('#env_name').val();
-    let url = $('#s3url').val();
-
-    console.log(url);
-
-    let data = {
-        environmentName:env_name,
-        environmentURL:url
+     
+     for (i=0 ; i<obj.length ; i++) {
+         var html = '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6></div>'; 
+         $('#outer_wrapper').append(html);
     }
-    console.log(data);
 
-    $.ajax({
-        type:"POST",
-        url:"http://localhost:3001/environments/create/",
-        data:data,
-        success:function(response){
-            console.log(response)
+    for (i=0 ; i<obj.length ; i++) {
+        var html = '<div class="box " style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; " id ="box-img"><div class="card" ><div class="card-image"><img src="'+obj[i]+'" ></div></div><h6 class="center-align">'+title[i]+'</h6></div>'; 
+        $('.outer_wrapper').append(html);
+   }
+
+   let imagen;
+   $('#file-inp').change(()=>{
+    const files = $('#file-inp').prop("files");
+    for (i=0 ; i<files.length ; i++) {
+        if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
+              imagen = URL.createObjectURL(files[i]);
+              console.log(URL.createObjectURL(files[i]));
+              $('#disp-img').attr('src', imagen);
         }
-        
+    }
+    
+
+    // $("#upl-env").click(function(){
+
+    //     let dataUrl1 = "http://ec2-3-25-145-248.ap-southeast-2.compute.amazonaws.com:3001/";
+    //     let dataUrl = "/aws/env/upload"
+    //     $.post(dataUrl, function(imagen, status){
+    //       alert("Data: " + imagen + "\nStatus: " + status);
+    //     });
+    //   });
+    });
+
+    // upload file
+    const uploadForm = document.querySelector('.upload')
+
+    uploadForm.addEventListener('submit',function(e){
+        e.preventDefault()
+        let file = e.target.uploadFile.files[0];
+         
+        console.log(file)
+        let formData = new FormData();
+        formData.append('file',file)
+
+        fetch('http://localhost:3001/aws/env/upload',{
+            method:'POST',
+            body:formData
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.errors){
+                alert(data.errors)
+            }else{
+                console.log(data)
+            }
+        })
     })
-  });
+
+    // $('#file-inp1').change(()=>{
+    // const files = $('#file-inp1').prop("files");
+    // for (i=0 ; i<files.length ; i++) {
+    //     if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
+    //           const imagen = URL.createObjectURL(files[i]);
+    //           console.log(URL.createObjectURL(files[i]));
+    //           $('#disp-img1').attr('src', imagen);
+    //     }
+    // }
+    // });
+
+    $("#file-wraper").val('');
+    $("#file-wraper1").val('');
+    $("#Env-name").val('');
+    $("#Mdl-name").val('');
+
+
 </script>
