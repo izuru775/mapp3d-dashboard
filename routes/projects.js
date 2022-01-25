@@ -4,34 +4,13 @@ const router = express.Router();
 const ProjectControllers = require("../controllers");
 
 router.get("/", (req, res) => {
-  ProjectControllers.projectService.getDataController(req,res);
+  ProjectControllers.projectController.getDataController(req,res)
   
 });
 
 router.post("/", (req, res) => {
-  let { environmentName, environmentCreator, vrObject } = req.body;
-  console.log(req.body);
-  if (req.body) {
-    const newVR = new VR({
-      environmentName,
-      environmentCreator,
-      vrObject,
-    });
-    newVR
-      .save()
-      .then((result) => {
-        if (result) {
-          res.json({
-            statusCode: 200,
-            message: "object successfully added",
-            data: result,
-          });
-        } else {
-          res.json({ statusCode: 400, message: err });
-        }
-      })
-      .catch((err) => console.log(err));
-  }
+  ProjectControllers.projectController.uploadDataController(req,res)
+  
 });
 
 router.get("/home", (req, res) => {
@@ -42,7 +21,8 @@ router.get('/environments',(req,res)=>{
     res.render('environments',{title:'Environments'})
 })
 router.get('/myEnvironments',(req,res)=>{
-    res.render('myEnvironments',{title:'My Environments'})
+  ProjectControllers.projectController.getEnvironmentsController(req,res)
+    
 })
 router.get('/miami',(req,res)=>{
     res.render('miami',{title:'My Environments'})
