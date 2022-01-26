@@ -13,8 +13,21 @@ const getEnvironmentsController =(req,res)=>{
     Services.projectService.getEnvironmentService(req,res)
 }
 
+const deleteObjectsController=(req,res)=>{
+    Services.projectService.deleteObjectsService(req,res)
+}
+
+const deleteEnvironmentController=(req,res)=>{
+    Services.projectService.deleteEnvironmentService(req,res)
+}
+const updateEnvironmentController =(req,res)=>{
+    Services.projectService.updateEnvironmentService(req,res)
+}
 module.exports = {
     getDataController,
     uploadDataController,
-    getEnvironmentsController
+    getEnvironmentsController,
+    deleteObjectsController,
+    deleteEnvironmentController,
+    updateEnvironmentController,
 }
