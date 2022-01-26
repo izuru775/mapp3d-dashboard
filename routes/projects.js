@@ -131,6 +131,9 @@ router.post('/', (req, res) => {
 router.put('/updateEnvironment', (req, res) => {
   ProjectControllers.projectController.updateEnvironmentController(req, res);
 });
+router.put('/addObjects',(req,res)=>{
+    ProjectControllers.projectController.addObjectsController(req,res)
+})
 
 router.delete('/deleteObject', (req, res) => {
   ProjectControllers.projectController.deleteObjectsController(req, res);

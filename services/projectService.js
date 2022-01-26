@@ -79,29 +79,67 @@ const deleteEnvironmentService = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
-const updateEnvironmentService =(req,res)=>{
-  const {id,environmentName,environmentCreator,environmentOptions,vrObject} = req.body
-  Models.VR.findByIdAndUpdate({_id:id},{ $set:{environmentName,environmentCreator,environmentOptions,vrObject}})
-    .then(result=>{
+
+const updateEnvironmentService = (req, res) => {
+  const {
+    id,
+    environmentName,
+    environmentCreator,
+    environmentOptions,
+    vrObject,
+  } = req.body;
+  Models.VR.findByIdAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        environmentName,
+        environmentCreator,
+        environmentOptions,
+        vrObject,
+      },
+    }
+  )
+    .then((result) => {
       let err = 'record not fund';
       let success_message = 'Environment successfully deleted';
-      if(result){
+      if (result) {
         res.json({
           statusCode: 200,
           message: success_message,
           data: result,
         });
-      }else{
+      } else {
         res.json({ statusCode: 400, message: err });
       }
     })
     .catch((err) => console.log(err));
-}
+};
+
+const addObjectsService = (req, res) => {
+  console.log(req.body);
+  const { id, vrObject } = req.body;
+  Models.VR.findByIdAndUpdate({ _id: id }, { $push: { vrObject: vrObject } })
+    .then((result) => {
+      let err = 'record not fund';
+      let success_message = 'Object successfully deleted';
+      if (result) {
+        res.json({
+          statusCode: 200,
+          message: success_message,
+          data: result,
+        });
+      } else {
+        res.json({ statusCode: 400, message: err });
+      }
+    })
+    .catch((err) => console.log(err));
+};
 module.exports = {
   getDataService,
   uploadDataService,
   getEnvironmentsService,
   deleteObjectsService,
   deleteEnvironmentService,
-  updateEnvironmentService
+  updateEnvironmentService,
+  addObjectsService,
 };

@@ -133,5 +133,5 @@ module.exports = {
     getObject,
     updateObject,
     deleteObject,
-    deleteAllObjects,
+    deleteAllObjects
 };
