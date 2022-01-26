@@ -1,5 +1,5 @@
 module.exports ={
-    projectService:require('./projectControllers'),
+    projectController:require('./projectControllers'),
     Object: require('./objectController'),
     Environment: require('./environmentController'),
     S3Object: require('./s3ObjectController'),

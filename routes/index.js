@@ -1,5 +1,5 @@
 module.exports = {
-    projectService: require("./projects"),
+    projectRoute: require("./projects"),
     s3Object: require(`./aws/object`),
     s3Environment: require(`./aws/environment`),
     dbObjects: require(`./mongoDB/objects`),
