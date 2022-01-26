@@ -1,113 +1,72 @@
-<div
-  id="form-div"
-  class="container"
-  style="
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-  "
->
-  <form
-    class="upload"
-    style="align-self: center; width: 400px; margin-bottom: 30px"
-  >
-    <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input id="file" type="file" name="uploadFile" required />
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" />
-      </div>
-      <div id="disabled" class="input-field col s12">
-        <input
-          disabled
-          value="S3 Bucket URL"
-          id="s3url"
-          type="url"
-          class="validate"
-        />
-        <label for="disabled"></label>
-      </div>
-      <div>
-        <button
-          class="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-        >
-          Submit S3 Bucket
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-      <button
-        id="submit"
-        class="btn waves-effect waves-light"
-        type="button"
-        name="action"
-      >
-        Submit
-        <i class="material-icons right">send</i>
-      </button>
+<div>
+    <div class="Select-Env">
+
     </div>
-  </form>
+
 </div>
 
+
+
 <script>
-  const uploadForm = document.querySelector('.upload');
+    let dataUrl = "http://ec2-3-26-220-121.ap-southeast-2.compute.amazonaws.com:3001/api";
 
-  uploadForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    let file = e.target.uploadFile.files[0];
+    
 
-    let formData = new FormData();
-    formData.append('file', file);
+    // Retreving data from dataUrl api
+    $.get(dataUrl, (result, err) => {
 
-    // SAving files in s3bucket and getting a url back
-    fetch('http://localhost:3001/aws/env/upload/', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data.errors) {
-          alert(data.errors);
-        } else {
-          let url = data.url;
-          
-          $('#s3url').val(`${url}`);
-          $('#disabled').after(
-            '<div class="input-field col s6">' +
-              '<input required id="env_name" type="text" class="validate"/>' +
-              '<label for="env_name">Environment Name</label>' +
-              '</div>'
-          );
-        }
-      });
-  });
 
-  // Saving EnvironmentName & EnviornmentURL in DB
-  $('#submit').click(function () {
-    let env_name = $('#env_name').val();
-    let url = $('#s3url').val();
+        for (let i = 0; i < result.data.length; i++) {
+            const { environmentName, environmentCreator, vrObject } = result.data[i];
+            
+            let Environment = $(
+                `<h3 style="text-align:center;">${environmentName}</h3>`
+              );
+              $(".Select-Env").append(Environment);
 
-    console.log(url);
+              for(let j=0; j < vrObject.length; j++) {
+                const { name, url, _id } = vrObject[j];
+                let EnvObj = $(
+                   // `<div style="border-style:solid;"><h6>${name}</h6><h6>${url}</h6><h6>${_id}</h6><button class="btn waves-effect btn-large waves-light" type="button" name="action">Delete</button></div>`
+                    '<div class="box" id="'+_id+'" style="display: inline-block;width: 300px; height:200px; margin: 0 20px 0 20px; ">'+
+                        '<div class="card horizontal">'+
+                          '<div class="card-stacked">'+
+                            '<div class="card-content">'+
+                              '<h5> '+name+'</h5>'+
+                            '</div>'+
+                            '<div class="card-action">'+
+                              '<button id="'+_id+'" class="btn waves-effect btn-large waves-light" onclick="deleteObj(this.id);">Delete</button>'+
+                            '</div>'+
+                          '</div>'+
+                        '</div>'+
+                      '</div>'
+                    );
+                 $(".Select-Env").append(EnvObj);
+              }
 
-    let data = {
-        environmentName:env_name,
-        environmentURL:url
-    }
-    console.log(data);
+        } 
+});
 
+function deleteObj(id){
     $.ajax({
-        type:"POST",
-        url:"http://localhost:3001/environments/create/",
-        data:data,
-        success:function(response){
-            console.log(response)
-        }
-        
-    })
-  });
+        url: 'http://localhost:3001/api/deleteObject',
+        type: "DELETE",
+        dataType: 'json',
+        data: {
+            "obj_id" :id
+              },
+        success: function (data, textStatus, xhr) {  
+                console.log(data);  
+            },  
+        error: function (xhr, textStatus, errorThrown) {  
+                console.log('Error in Operation');  
+            }  
+    
+     })
+     console.log(id);
+     //var objRmv = document.getElementById(id);
+     //objRmv.remove(); // Removes the div with id
+
+}
+
 </script>
