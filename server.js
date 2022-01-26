@@ -8,7 +8,9 @@ var expressLayouts = require("express-ejs-layouts");
 var flash = require("connect-flash");
 var session = require("express-session");
 const swaggerUi = require(`swagger-ui-express`);
-const swaggerDocument = require(`./swagger.json`);
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerDocument = require(`./swagger`);
+
 
 const app = express();
 // EJS added as view engine
@@ -47,7 +49,7 @@ app.use("/aws/obj", routes.s3Object);
 app.use("/aws/env", routes.s3Environment);
 app.use("/objects", routes.dbObjects);
 app.use("/environments", routes.dbEnvironments);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.openapiSpecification));
 
 // Clashing with Swagger-UI
 // app.use((req, res, next) => {
