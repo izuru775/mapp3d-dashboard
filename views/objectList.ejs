@@ -1,0 +1,30 @@
+<div class="Select-Env" style="
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+justify-content: center;
+">
+
+<h3>Environment Name</h3>
+</div>
+
+<script>
+    let dataUrl = "http://ec2-3-26-220-121.ap-southeast-2.compute.amazonaws.com:3001/api";
+
+    let objectArray = [];
+
+    // Retreving location,scale & rotation from dataUrl api
+    $.get(dataUrl, (result, err) => {
+
+
+        for (let i = 0; i < result.data.length; i++) {
+            const { environmentName, environmentCreator, vrObject } = result.data[i];
+    
+            let Environment = $(
+                `<button id="submit" class="btn waves-effect btn-large waves-light" style="margin-top: 40px;" type="button" name="action">${environmentName}</button>`
+              );
+              $(".Select-Env").append(Environment);
+        } 
+});
+
+</script>

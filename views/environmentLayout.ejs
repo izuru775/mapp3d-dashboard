@@ -39,27 +39,22 @@
                         <input type="text" class="form-control border border-dark rounded" id="Env-name"
                             placeholder=" Text">
                     </div>
-                    <div style="display:flex; flex-direction: row;">
-                        <form class="upload" style="display: flex; flex-direction: column;">
+                    <div>
+                        <form action="#">
                             <div class="file-field input-field">
                                 <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
                                     <span>Choose File</span>
-                                    <input type="file" name="uploadFile" multiple id="file-inp" >
+                                    <input type="file" multiple id="file-inp">
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload one or more files" id ="file-wraper">
                                 </div>
                             </div>
-                            <div>
-                                <a class="waves-effect waves-light btn-large modal-trigger rounded"
-                            style="margin-right:20px" type="submit" id="upl-env">Upload</a>
-                            </div>
-                            <div>
-                                <a class="waves-effect waves-light btn-large modal-trigger rounded"
-                                    style="margin-right:20px" href="#!" onclick="" >Save</a>
-                                </div>
                         </form>
-                        
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" href="#!" id="upl-env">Upload</a>
+                        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+                            style="margin-right:20px" href="#!" onclick="" >Save</a>
                     </div>
                 </div>
             </div>
@@ -157,63 +152,60 @@
         $('.outer_wrapper').append(html);
    }
 
+   
    let imagen;
+   let files;
    $('#file-inp').change(()=>{
-    const files = $('#file-inp').prop("files");
+    files = $('#file-inp').prop("files");
+    console.log(files);
     for (i=0 ; i<files.length ; i++) {
         if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
               imagen = URL.createObjectURL(files[i]);
-              console.log(URL.createObjectURL(files[i]));
+              //console.log(URL.createObjectURL(files[i]));
               $('#disp-img').attr('src', imagen);
         }
     }
-    
 
-    // $("#upl-env").click(function(){
-
-    //     let dataUrl1 = "http://ec2-3-25-145-248.ap-southeast-2.compute.amazonaws.com:3001/";
-    //     let dataUrl = "/aws/env/upload"
-    //     $.post(dataUrl, function(imagen, status){
-    //       alert("Data: " + imagen + "\nStatus: " + status);
-    //     });
-    //   });
     });
 
-    // upload file
-    const uploadForm = document.querySelector('.upload')
+    $("#upl-env").click(function(){
 
-    uploadForm.addEventListener('submit',function(e){
-        e.preventDefault()
-        let file = e.target.uploadFile.files[0];
-         
-        console.log(file)
-        let formData = new FormData();
-        formData.append('file',file)
+        let dataUrl = "http://localhost:3001/aws/env/upload";
+        
+        
+        const formData = new FormData();
+        formData.append("file", files[0]);
 
-        fetch('http://localhost:3001/aws/env/upload',{
-            method:'POST',
-            body:formData
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            if(data.errors){
-                alert(data.errors)
-            }else{
-                console.log(data)
+        var request = new XMLHttpRequest();
+        request.open("POST", dataUrl);
+        request.onload = function(oEvent) {
+            if (request.status == 200) {
+              console.log("Uploaded!");
+              var response = JSON.parse(request.responseText);
+              let url = response.url;
+              console.log(url);
+            } else {
+              console.log("Error " + request.status + " occurred when trying to upload your file.");
             }
-        })
-    })
+          };
+        request.send(formData);
 
-    // $('#file-inp1').change(()=>{
-    // const files = $('#file-inp1').prop("files");
-    // for (i=0 ; i<files.length ; i++) {
-    //     if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
-    //           const imagen = URL.createObjectURL(files[i]);
-    //           console.log(URL.createObjectURL(files[i]));
-    //           $('#disp-img1').attr('src', imagen);
-    //     }
-    // }
-    // });
+
+        //$.post(dataUrl,formData, function(data, status){
+        //  alert("Data: " + data + "\nStatus: " + status);
+        //});
+      });
+
+    $('#file-inp1').change(()=>{
+    const files = $('#file-inp1').prop("files");
+    for (i=0 ; i<files.length ; i++) {
+        if ($.inArray(files[i].name.substring(files[i].name.lastIndexOf('.') + 1), ['jpg', 'png'])  > -1){
+              const imagen = URL.createObjectURL(files[i]);
+              console.log(URL.createObjectURL(files[i]));
+              $('#disp-img1').attr('src', imagen);
+        }
+    }
+    });
 
     $("#file-wraper").val('');
     $("#file-wraper1").val('');

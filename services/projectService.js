@@ -38,7 +38,7 @@ const uploadDataService = (req, res) => {
       .catch((err) => console.log(err));
   }
 };
-const getEnvironmentsService = (req, res) => {
+const getEnvironmentService = (req, res) => {
   res.render('myEnvironments', { title: 'My Environments' });
 };
 const deleteObjectsService = (req, res) => {
@@ -137,7 +137,7 @@ const addObjectsService = (req, res) => {
 module.exports = {
   getDataService,
   uploadDataService,
-  getEnvironmentsService,
+  getEnvironmentService,
   deleteObjectsService,
   deleteEnvironmentService,
   updateEnvironmentService,

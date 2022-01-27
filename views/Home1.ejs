@@ -1,0 +1,123 @@
+<div id="form-div" class="container" style="
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  ">
+  <form class="upload" style="align-self: center; width: 500px; margin-bottom: 30px">
+    <input type="text" class="form-control border border-dark rounded" style="margin-top: 40px;  width: 300px;" id="Env-name" placeholder=" Environment Name">
+    <input type="text" class="form-control border border-dark rounded" style="width: 300px;" id="Env-crt" placeholder=" Environment Creator">
+    <div id ="all-obj">
+      <div class="file-field input-field " id="upload-div" style="margin-top: 40px; border: 2px solid rgb(20, 19, 19); border-radius: 4px;  padding-left: 20px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px;">
+        <div class="btn">
+          <span>File</span>
+          <input id="file" type="file" name="uploadFile" required />
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" />
+        </div>
+        <div id="disabled" class="input-field col s12">
+          <input disabled value="S3 Bucket URL" id="s3url" type="url" class="validate" />
+          <label for="disabled"></label>
+        </div>
+        <div>
+          <button class="btn waves-effect waves-light" style="margin: 10px;" type="submit" name="action">
+            Submit S3 Bucket
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <a class="btn-floating waves-effect waves-light black" id="add-button"  style="margin: 10px;"><i class="material-icons">add</i></a>
+      </div>
+    </div>
+    <button id="submit" class="btn waves-effect waves-light" style="margin: 10px;" type="button" name="action">
+      Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </form>
+</div>
+
+<script>
+  const uploadForm = document.querySelector('.upload');
+
+  uploadForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let file = e.target.uploadFile.files[0];
+
+    let formData = new FormData();
+    formData.append('file', file);
+
+    // SAving files in s3bucket and getting a url back
+    fetch('http://localhost:3001/aws/env/upload/', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.errors) {
+          alert(data.errors);
+        } else {
+          let url = data.url;
+          
+          $('#s3url').val(`${url}`);
+          /*
+          $('#disabled').after(
+            '<div class="input-field col s6">' +
+              '<input required id="env_name" type="text" class="validate"/>' +
+              '<label for="env_name">Environment Name</label>' +
+              '</div>'
+          );*/
+        }
+      });
+  });
+
+  // Saving EnvironmentName & EnviornmentURL in DB
+  $('#submit').click(function () {
+    let env_name = $('#env_name').val();
+    let url = $('#s3url').val();
+
+    console.log(url);
+
+    let data = {
+        environmentName:env_name,
+        environmentURL:url
+    }
+    console.log(data);
+
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3001/environments/create/",
+        data:data,
+        success:function(response){
+            console.log(response)
+        }
+        
+    })
+  });
+
+  $("#add-button").click(function(){
+    document.getElementById('add-button').style.visibility="hidden";
+    $('#all-obj').append(
+      '<div class="file-field input-field " id="upload-div" style="margin-top: 40px; border: 2px solid rgb(20, 19, 19); border-radius: 4px;  padding-left: 20px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px;">'+
+        '<div class="btn">'+
+          '<span>File</span>'+
+          '<input id="file" type="file" name="uploadFile" required />'+
+        '</div>'+
+        '<div class="file-path-wrapper">'+
+          '<input class="file-path validate" type="text" />'+
+        '</div>'+
+        '<div id="disabled" class="input-field col s12">'+
+          '<input disabled value="S3 Bucket URL" id="s3url" type="url" class="validate" />'+
+          '<label for="disabled"></label>'+
+        '</div>'+
+        '<div>'+
+          '<button class="btn waves-effect waves-light" style="margin: 10px;" type="submit" name="action">'+
+            'Submit S3 Bucket'+
+            '<i class="material-icons right">send</i>'+
+          '</button>'+
+        '</div>'+
+        '<a class="btn-floating waves-effect waves-light black" id="add-button"  style="margin: 10px;"><i class="material-icons">add</i></a>'+
+      '</div>'
+    );
+  });
+</script>
