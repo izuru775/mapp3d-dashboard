@@ -172,7 +172,32 @@ router.get('/editEnvironment/:id',(req,res)=>{
     .then((result) => {
       if (result) {
         console.log(result)
-        res.render('editEnvironment',{title:'Edit Environment',records:result})
+
+        let { _id,environmentName, environmentCreator, environmentOptions, vrObject } = result[0];
+
+        let _vrObject =[];
+        vrObject.forEach(element => {         
+          const {_id,name,position,scale,rotation,url} = element;
+
+          let [x,y,z] = position.split(' ');
+          const _position = new Array(x,y,z)
+
+          let [x1,y1,z1] = scale.split(' ');
+          const _scale = new Array(x1,y1,z1)
+
+          let [x2,y2,z2] = scale.split(' ');
+          const _rotation = new Array(x2,y2,z2)
+          let obj = {_id,name,_position,_scale,_rotation,url}
+          _vrObject.push(obj)
+          
+          
+        });
+        let _result =[];
+        let obj1={_id,environmentName,environmentCreator,environmentOptions,_vrObject}
+
+        _result.push(obj1)
+        console.log(_result)
+        res.render('editEnvironment',{title:'Edit Environment',records:_result})
       } else {
         res.json({ statusCode: 400, message: err });
       }

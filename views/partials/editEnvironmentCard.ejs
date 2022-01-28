@@ -98,7 +98,7 @@
                           </div>
                           <!-- Environment Options ends here -->
                           
-                          <% record.vrObject.forEach(object=>{ %>
+                          <% record._vrObject.forEach(object=>{ %>
                           <div class="row">
                             <div class="col s12 m6">
                               <div class="card blue-grey darken-1">
@@ -111,22 +111,72 @@
                                       </div>
                                 </div>
                                 <div class="row">
+                                  <div class="col">
                                     <div class="input-field col s6">
+                                    <input value="<%= object._position[0] %>" id="obj_position_x<%= object._id %>" type="text" class="validate">
+                                        <label for="obj_position_x">position x</label>
+                                      </div>
+                                  </div>
+                                  
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                    <input value="<%= object._position[1] %>" id="obj_position_y<%= object._id %>" type="text" class="validate">
+                                        <label for="obj_position_y">position y</label>
+                                        </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                    <input value="<%= object._position[2] %>" id="obj_position_z<%= object._id %>" type="text" class="validate">
+                                        <label for="obj_position_z">position z</label>
+                                      </div>
+                                  </div>
+                                  
+                                    <!-- <div class="input-field col s6">
                                         <input value="<%= object.position %>" id="obj_position<%= object._id %>" type="text" class="validate">
                                         <label for="obj_position">position</label>
-                                      </div>
+                                      </div> -->
                                 </div>
                                 <div class="row">
+                                  <div class="col">
                                     <div class="input-field col s6">
-                                        <input value="<%= object.scale %>" id="obj_scale<%= object._id %>" type="text" class="validate">
-                                        <label for="obj_scale">scale</label>
-                                      </div>
+                                      <input value="<%= object._scale[0] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_scale">scale x</label>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                      <input value="<%= object._scale[1] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_scale">scale y</label>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                      <input value="<%= object._scale[2] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_scale">scale z</label>
+                                    </div>
+                                  </div>
+                                    
                                 </div>
                                 <div class="row">
+                                  <div class="col">
                                     <div class="input-field col s6">
-                                        <input value="<%= object.rotation %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
-                                        <label for="obj_rotation">rotation</label>
-                                      </div>
+                                      <input value="<%= object._rotation[0] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation">rotation x</label>
+                                    </div>                                   
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                      <input value="<%= object._rotation[1] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation">rotation y</label>
+                                    </div>                                   
+                                  </div>
+                                  <div class="col">
+                                    <div class="input-field col s6">
+                                      <input value="<%= object._rotation[2] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation">rotation z</label>
+                                    </div>                                   
+                                  </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
