@@ -53,7 +53,7 @@ const ProjectControllers = require('../controllers');
  *        vrObject:
  *          type: array
  *          items:
- *            type: object          
+ *            type: object
  *            properties:
  *              name:
  *                type: string
@@ -78,7 +78,7 @@ const ProjectControllers = require('../controllers');
  * @swagger
  *  tags:
  *    name: Environments
- *    description: The environment managing Api 
+ *    description: The environment managing Api
  */
 
 /**
@@ -107,7 +107,7 @@ router.get('/', (req, res) => {
  * @swagger
  * /api:
  *  post:
- *    summary: Create a new environment 
+ *    summary: Create a new environment
  *    tags: [CreateEnvironments]
  *    requestBody:
  *      required: true
@@ -131,9 +131,9 @@ router.post('/', (req, res) => {
 router.put('/updateEnvironment', (req, res) => {
   ProjectControllers.projectController.updateEnvironmentController(req, res);
 });
-router.put('/addObjects',(req,res)=>{
-    ProjectControllers.projectController.addObjectsController(req,res)
-})
+router.put('/addObjects', (req, res) => {
+  ProjectControllers.projectController.addObjectsController(req, res);
+});
 
 router.delete('/deleteObject', (req, res) => {
   ProjectControllers.projectController.deleteObjectsController(req, res);
@@ -143,8 +143,27 @@ router.delete('/deleteEnvironment', (req, res) => {
   ProjectControllers.projectController.deleteEnvironmentController(req, res);
 });
 
+router.put('/updateObject', (req, res) => {
+  let { env_id,id, vrObject } = req.body;
+  console.log(env_id)
+  Models.VR.updateOne(
+    { _id: env_id },
+    {
+      $set: {
+        'vrObject.$.name': vrObject.name,
+        'vrObject.$.position': vrObject.position,
+        'vrObject.$.scale': vrObject.scale,
+        'vrObject.$.rotation': vrObject.rotation,
+        "vrObject.$.url":vrObject.url
+      },
+    }
+  )
+  .then(result=>{
 
-
+    res.json({statusCode:200, result:result})
+  })
+  .catch((err) => console.log(err));
+});
 
 router.get('/home', (req, res) => {
   res.render('index', { title: 'Home' });
@@ -165,50 +184,60 @@ router.get('/createEnvironment', (req, res) => {
 router.get('/environmentLayout', (req, res) => {
   res.render('environmentLayout', { title: 'Environment Layout' });
 });
-router.get('/editEnvironment/:id',(req,res)=>{
-  let id = req.params.id
-  console.log(id)
-  Models.VR.find({_id:id})
+
+router.get('/editEnvironment/:id', (req, res) => {
+  let id = req.params.id;
+  Models.VR.find({ _id: id })
     .then((result) => {
       if (result) {
-        console.log(result)
 
-        let { _id,environmentName, environmentCreator, environmentOptions, vrObject } = result[0];
+        let {
+          _id,
+          environmentName,
+          environmentCreator,
+          environmentOptions,
+          vrObject,
+        } = result[0];
 
-        let _vrObject =[];
-        vrObject.forEach(element => {         
-          const {_id,name,position,scale,rotation,url} = element;
+        let _vrObject = [];
+        vrObject.forEach((element) => {
+          const { _id, name, position, scale, rotation, url } = element;
 
-          let [x,y,z] = position.split(' ');
-          const _position = new Array(x,y,z)
+          let [x, y, z] = position.split(' ');
+          const _position = new Array(x, y, z);
 
-          let [x1,y1,z1] = scale.split(' ');
-          const _scale = new Array(x1,y1,z1)
+          let [x1, y1, z1] = scale.split(' ');
+          const _scale = new Array(x1, y1, z1);
 
-          let [x2,y2,z2] = scale.split(' ');
-          const _rotation = new Array(x2,y2,z2)
-          let obj = {_id,name,_position,_scale,_rotation,url}
-          _vrObject.push(obj)
-          
-          
+          let [x2, y2, z2] = rotation.split(' ');
+          const _rotation = new Array(x2, y2, z2);
+          let obj = { _id, name, _position, _scale, _rotation, url };
+          _vrObject.push(obj);
         });
-        let _result =[];
-        let obj1={_id,environmentName,environmentCreator,environmentOptions,_vrObject}
+        let _result = [];
+        let obj1 = {
+          _id,
+          environmentName,
+          environmentCreator,
+          environmentOptions,
+          _vrObject,
+        };
 
-        _result.push(obj1)
-        console.log(_result)
-        res.render('editEnvironment',{title:'Edit Environment',records:_result})
+        _result.push(obj1);
+
+        res.render('editEnvironment', {
+          title: 'Edit Environment',
+          records: _result,
+        });
       } else {
         res.json({ statusCode: 400, message: err });
       }
     })
     .catch((err) => console.log(err));
-})
+});
 router.post('/editEnvironment', (req, res) => {
-  const id = req.body.id
-  res.redirect('/api/editEnvironment/'+id)
-
-  
+  const id = req.body.id;
+  res.redirect('/api/editEnvironment/' + id);
 });
 router.get('/360video', (req, res) => {
   res.render('360video', { title: '360 video' });

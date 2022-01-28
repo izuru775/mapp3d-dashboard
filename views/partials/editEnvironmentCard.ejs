@@ -139,19 +139,19 @@
                                 <div class="row">
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._scale[0] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <input value="<%= object._scale[0] %>" id="obj_scale_x<%= object._id %>" type="text" class="validate">
                                       <label for="obj_scale">scale x</label>
                                     </div>
                                   </div>
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._scale[1] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <input value="<%= object._scale[1] %>" id="obj_scale_y<%= object._id %>" type="text" class="validate">
                                       <label for="obj_scale">scale y</label>
                                     </div>
                                   </div>
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._scale[2] %>" id="obj_scale<%= object._id %>" type="text" class="validate">
+                                      <input value="<%= object._scale[2] %>" id="obj_scale_z<%= object._id %>" type="text" class="validate">
                                       <label for="obj_scale">scale z</label>
                                     </div>
                                   </div>
@@ -160,20 +160,20 @@
                                 <div class="row">
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._rotation[0] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
-                                      <label for="obj_rotation">rotation x</label>
+                                      <input value="<%= object._rotation[0] %>" id="obj_rotation_x<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation_x">rotation x</label>
                                     </div>                                   
                                   </div>
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._rotation[1] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
-                                      <label for="obj_rotation">rotation y</label>
+                                      <input value="<%= object._rotation[1] %>" id="obj_rotation_y<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation_y">rotation y</label>
                                     </div>                                   
                                   </div>
                                   <div class="col">
                                     <div class="input-field col s6">
-                                      <input value="<%= object._rotation[2] %>" id="obj_rotation<%= object._id %>" type="text" class="validate">
-                                      <label for="obj_rotation">rotation z</label>
+                                      <input value="<%= object._rotation[2] %>" id="obj_rotation_z<%= object._id %>" type="text" class="validate">
+                                      <label for="obj_rotation_z">rotation z</label>
                                     </div>                                   
                                   </div>
                                     
@@ -233,23 +233,69 @@
                         <label for="obj_name">name</label>
                       </div>
                 </div>
+                <!-- Positions -->
                 <div class="row">
+                  <div class="col">
                     <div class="input-field col s6">
-                        <input  id="obj_position" type="text" class="validate">
-                        <label for="obj_position">position</label>
-                      </div>
+                      <input  id="obj_position_x" type="text" class="validate">
+                      <label for="obj_position_x">position x</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_position_y" type="text" class="validate">
+                      <label for="obj_position_y">position y</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_position_z" type="text" class="validate">
+                      <label for="obj_position_z">position z</label>
+                    </div>
+                  </div>
+                    <!-- Scale -->
                 </div>
                 <div class="row">
+                  <div class="col">
                     <div class="input-field col s6">
-                        <input  id="obj_scale" type="text" class="validate">
-                        <label for="obj_scale">scale</label>
-                      </div>
+                      <input  id="obj_scale_x" type="text" class="validate">
+                      <label for="obj_scale_x">scale x</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_scale_y" type="text" class="validate">
+                      <label for="obj_scale_y">scale y</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_scale_z" type="text" class="validate">
+                      <label for="obj_scale_z">scale z</label>
+                    </div>
+                  </div>
+                    
                 </div>
+                <!-- Rotation -->
                 <div class="row">
+                  <div class="col">
                     <div class="input-field col s6">
-                        <input  id="obj_rotation" type="text" class="validate">
-                        <label for="obj_rotation">rotation</label>
-                      </div>
+                      <input  id="obj_rotation_x" type="text" class="validate">
+                      <label for="obj_rotation_x">rotation x</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_rotation_y" type="text" class="validate">
+                      <label for="obj_rotation_y">rotation y</label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="input-field col s6">
+                      <input  id="obj_rotation_z" type="text" class="validate">
+                      <label for="obj_rotation_z">rotation z</label>
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">

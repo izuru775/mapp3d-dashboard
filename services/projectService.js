@@ -53,12 +53,12 @@ const getEnvironmentService = (req, res) => {
 
 const deleteObjectsService = (req, res) => {
   let obj_id = req.body.obj_id;
-  console.log(obj_id)
+
   // UpdateMany goes through the vrObject array to finds a specific record
   Models.VR.updateMany({}, { $pull: { vrObject: { _id: obj_id } } })
     .then((record) => {
       let err = 'record not fund';
-      console.log(record)
+
       if (record.modifiedCount) {
         let success_message = '3dObject successfully deleted';
         res.json({
@@ -127,7 +127,7 @@ const updateEnvironmentService = (req, res) => {
 };
 
 const addObjectsService = (req, res) => {
-  console.log(req.body);
+
   const { id, vrObject } = req.body;
   Models.VR.findByIdAndUpdate({ _id: id }, { $push: { vrObject: vrObject } })
     .then((result) => {
