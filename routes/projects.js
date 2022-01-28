@@ -165,8 +165,25 @@ router.get('/createEnvironment', (req, res) => {
 router.get('/environmentLayout', (req, res) => {
   res.render('environmentLayout', { title: 'Environment Layout' });
 });
-router.get('/editEnvironment', (req, res) => {
-  res.render('editEnvironment', { title: 'Edit Environment ' });
+router.get('/editEnvironment/:id',(req,res)=>{
+  let id = req.params.id
+  console.log(id)
+  Models.VR.find({_id:id})
+    .then((result) => {
+      if (result) {
+        console.log(result)
+        res.render('editEnvironment',{title:'Edit Environment',records:result})
+      } else {
+        res.json({ statusCode: 400, message: err });
+      }
+    })
+    .catch((err) => console.log(err));
+})
+router.post('/editEnvironment', (req, res) => {
+  const id = req.body.id
+  res.redirect('/api/editEnvironment/'+id)
+
+  
 });
 router.get('/360video', (req, res) => {
   res.render('360video', { title: '360 video' });

@@ -1,51 +1,12 @@
-<div class="row">
-  <div class="col s12 m6">
-    <div class="card">
-      <div class="card-image">
-        <img src="/images/foresthouse.png" alt="foresthouse" />
-        <span class="card-title">Forest house</span>
-      </div>
-      <div class="card-content">
-        <div class="row">
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large"  href="/api/editEnvironment">Edit</a></div>
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large " href="/api/environments">Load</a></div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6">
-    <div class="card">
-      <div class="card-image">
-        <img src="/images/miami_thumb.png" alt="Miami" />
-        <span class="card-title">Miami</span>
-      </div>
-      <div class="card-content">
-        <div class="row">
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large ">Edit</a></div>
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large " href="/api/miami">Load</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6">
-    <div class="card">
-      <div class="card-image">
-        <img src="/images/360waterfall.png" alt="foresthouse" />
-        <span class="card-title">Waterfall 360 video</span>
-      </div>
-      <div class="card-content">
-        <div class="row">
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large ">Edit</a></div>
-            <div class="col s12 m6 center-align"><a class="waves-effect waves-light btn-large " href="/api/360video">Load</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+<div id="replace" class="row">
+  <% records.forEach(function(record){ %> <%-
+  include("./partials/environmentCard.ejs",{record:record}) %> <% }) %>
 </div>
-
-
 <script>
-
-  
+  $(document).on('click', '.waves-effect.waves-light.btn', function (e) {
+    e.preventDefault();
+    let id = $(this).attr('id');
+    window.location.href = "/api/editEnvironment/" + id;
+  });
 </script>

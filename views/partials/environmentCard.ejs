@@ -1,0 +1,22 @@
+<div class="col s12 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title"><%= record.environmentName %></span>
+  
+        <!-- <% record.vrObject.forEach(object=>{ %>
+        <ul>
+          <li>name : <%= object.name %></li>
+          <li>position : <%= object.position %></li>
+          <li>scale : <%= object.scale %></li>
+          <li>rotation : <%= object.rotation %></li>
+          <li>id_ : <%= object._id %></li>
+          <br />
+        </ul>
+        <% } )%> -->
+      </div>
+      <div class="card-action">
+        <a id="<%= record._id %>"  href="/api/editEnvironment/<%= record._id %>" class="waves-effect waves-light btn">Edit</a>
+      </div>
+    </div>
+  </div>
+  

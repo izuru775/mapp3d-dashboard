@@ -1,0 +1,192 @@
+<div>
+  <h2 class="center-align">Edits Selected Environment & Models</h2>
+  <div class="section"></div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-image">
+          <img src="/images/foresthouse.png" alt="foresthouse" />
+          <span class="card-title">Forest house</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-primary btn-lg btn-block modal-trigger" data-target="Edit-Env"
+        style="margin-bottom:10px; margin-top:70px">Edit</button>
+      <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:10px" href="#">Delete</button>
+      <button class="btn btn-primary btn-lg btn-block" style="margin-bottom:10px" href="#">Select from list</button>
+    </div>
+    <div class="border-top my-3">
+    </div>
+  </div>
+
+  <div class="col s12 m6 right-align">
+    <!-- Modal Structure -->
+    <div id="Edit-Env" class="modal ">
+      <div class="modal-footer">
+      </div>
+
+      <div class="modal-content container p-3 mb-2 bg-secondary text-white"">
+        <h2 class=" center-align">Environment</h2>
+      </div>
+
+
+      <div class="modal-content container ">
+        <div class="row">
+          <div class="col s1">
+            <img src="/images/foresthouse.png" alt="foresthouse" class="img-fluid">
+          </div>
+          <div class="col s10">
+            <p class="left-align" style="margin-top:10px">Environment Name: </p>
+            <input type="text" class="form-control border border-dark rounded" id="input1" placeholder=" Text">
+          </div>
+          <div>
+            <form action="#">
+              <div class="file-field input-field">
+                  <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
+                      <span>Upload</span>
+                      <input type="file" multiple>
+                  </div>
+                  <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text"
+                          placeholder="Upload one or more files">
+                  </div>
+              </div>
+          </form>
+          <a class="waves-effect waves-light btn-large modal-trigger rounded"
+              style="margin-right:20px" href="#!">Save</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-content container">
+        <div class="row">
+          <div class="col s1">
+            <h5 class="left-align">Position </h5>
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+          </div>
+          <div class="col s3">
+            <h5 class="left-align">Scale </h5>
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+          </div>
+          <div class="col s3">
+            <h5 class="left-align">Rotation </h5>
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+            <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+          </div>
+
+          <div class="section center-align">
+            <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-image">
+          <img src="/images/miami_thumb.png" alt="Miami" />
+          <span class="card-title">Miami</span>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary btn-lg modal-trigger" data-target="Edit-Mdl"
+          style="margin-left:90px; margin-top:30px">Edit</button>
+        <button class="btn btn-primary btn-lg" style="margin-left:90px; margin-top:30px" href="#">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col s12 m6 right-align">
+  <!-- Modal Structure -->
+  <div id="Edit-Mdl" class="modal ">
+    <div class="modal-footer">
+    </div>
+
+    <div class="modal-content container p-3 mb-2 bg-secondary text-white"">
+      <h2 class=" center-align">3D Object</h2>
+    </div>
+
+
+    <div class="modal-content container ">
+      <div class="row">
+        <div class="col s1">
+          <img src="/images/foresthouse.png" alt="foresthouse" class="img-fluid">
+        </div>
+        <div class="col s10">
+          <p class="left-align" style="margin-top:10px">Model Name: </p>
+          <input type="text" class="form-control border border-dark rounded" id="input1" placeholder=" Text">
+        </div>
+        <div>
+          <form action="#">
+            <div class="file-field input-field">
+                <div class="btn waves-effect waves-light btn-large modal-trigger rounded">
+                    <span>Upload</span>
+                    <input type="file" multiple>
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text"
+                        placeholder="Upload one or more files">
+                </div>
+            </div>
+        </form>
+        <a class="waves-effect waves-light btn-large modal-trigger rounded"
+            style="margin-right:20px" href="#!">Save</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-content container">
+      <div class="row">
+        <div class="col s1">
+          <h5 class="left-align">Position </h5>
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+        </div>
+        <div class="col s3">
+          <h5 class="left-align">Scale </h5>
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+        </div>
+        <div class="col s3">
+          <h5 class="left-align">Rotation </h5>
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" X cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Y cordinates">
+          <input id="first_name" type="text" class="validate border border-dark rounded" placeholder=" Z cordinates">
+        </div>
+
+        <div class="section center-align">
+          <a href="#!" class="waves-effect waves-light btn-large modal-trigger rounded">Save</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var elems = document.querySelectorAll(".modal");
+    var instances = M.Modal.init(elems);
+  });
+</script>

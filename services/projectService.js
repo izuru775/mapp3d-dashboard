@@ -39,16 +39,27 @@ const uploadDataService = (req, res) => {
   }
 };
 const getEnvironmentService = (req, res) => {
-  res.render('myEnvironments', { title: 'My Environments' });
+  Models.VR.find({})
+    .then((result) => {
+      if (result) {
+        res.render('myEnvironments', { title: 'My Environments' ,records:result});
+      } else {
+        res.json({ statusCode: 400, message: err });
+      }
+    })
+    .catch((err) => console.log(err));
 };
+  
+
 const deleteObjectsService = (req, res) => {
   let obj_id = req.body.obj_id;
-
+  console.log(obj_id)
   // UpdateMany goes through the vrObject array to finds a specific record
   Models.VR.updateMany({}, { $pull: { vrObject: { _id: obj_id } } })
     .then((record) => {
       let err = 'record not fund';
-      if (record) {
+      console.log(record)
+      if (record.modifiedCount) {
         let success_message = '3dObject successfully deleted';
         res.json({
           statusCode: 200,
@@ -120,8 +131,8 @@ const addObjectsService = (req, res) => {
   const { id, vrObject } = req.body;
   Models.VR.findByIdAndUpdate({ _id: id }, { $push: { vrObject: vrObject } })
     .then((result) => {
-      let err = 'record not fund';
-      let success_message = 'Object successfully deleted';
+      let err = 'something went wrong!';
+      let success_message = 'Object successfully added';
       if (result) {
         res.json({
           statusCode: 200,
