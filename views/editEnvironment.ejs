@@ -22,9 +22,11 @@
     });
   });
   // Trigger Modal
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function(e) {
+    e.preventDefault();
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
+
   });
   // Upload 3dObject
   $(document).on('click', '.waves-effect.waves-light.btn.add-obj', function (e) {
@@ -117,4 +119,29 @@
       dataType: 'json',
     });
   });
+  // Append obj url in modal
+  $(document).on('change','.browser-default.upload',function(){
+    $('#obj_url').attr('value',this.value)
+    
+  })
+  $(document).on('change','.browser-default.update',function(){
+    let id = $(this).parent().siblings().last().children().children('input').attr('id')
+    console.log(id)
+    $('#'+id).attr('value',this.value)
+   
+    
+  })
+  $(document).ready(function(){
+    $.ajax({
+        url: "/aws/obj/list/",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            res.objects.forEach(element => {
+              $('.browser-default',).append(`<option value="${element.url}">${element.filename}</option>`)
+            });
+            
+        }
+    })
+  })
 </script>
