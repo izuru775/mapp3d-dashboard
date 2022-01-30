@@ -225,4 +225,9 @@
     });
 
   });
+
+  $(document).on('change', '.browser-default.video', function () {
+    $('#video').attr('value', this.value)
+
+  })
 </script>

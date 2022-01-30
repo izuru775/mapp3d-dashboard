@@ -68,6 +68,15 @@
                           <label for="video">video</label>
                         </div>
                       </div>
+                      <div class="row">
+                        <!-- Select objects -->
+                        <label>Select Object</label>
+                        <select class="browser-default video">
+                          <option value="" disabled selected>
+                            Choose your option
+                          </option>
+                        </select>
+                      </div>
                       <!-- Floor Assets starts here -->
                       <div class="row">
                         <div class="col s12 m6">
@@ -140,12 +149,10 @@
                         >
                       </div>
                     </div>
-                    
-                  </div>                  
+                  </div>
                 </div>
               </div>
               <!-- Environment Options ends here -->
-              
 
               <% record._vrObject.forEach(object=>{ %>
               <div class="row">
@@ -313,7 +320,6 @@
                           </option>
                         </select>
                       </div>
-                      
                     </div>
                     <div class="card-action">
                       <a
@@ -332,21 +338,22 @@
               </div>
 
               <% } )%>
-              <div class="card-action d-flex justify-content-center" >
-                <div class="d-flex justify-content-start col-5
-                ">
+              <div class="card-action d-flex justify-content-center">
+                <div class="d-flex justify-content-start col-5">
                   <a
-                  class="waves-effect waves-light btn modal-trigger"
-                  href="#modal1"
-                  >Add Object to environment</a
-                >
-                <div class="col-2"></div>
+                    class="waves-effect waves-light btn modal-trigger"
+                    href="#modal1"
+                    >Add Object to environment</a
+                  >
+                  <div class="col-2"></div>
                 </div>
                 <div class="col-5 d-flex justify-content-end">
-                  <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Upload 3D Object</a>
+                  <a
+                    class="waves-effect waves-light btn modal-trigger"
+                    href="#modal2"
+                    >Upload 3D Object</a
+                  >
                 </div>
-                
-                
               </div>
             </form>
 
@@ -486,12 +493,12 @@
   </div>
 </div>
 <!-- Modal Structure to upload 3dmodels-->
-<div id="modal2" class="modal" style="max-height: 25%;">
-  <div class="modal-content" style="height: 100%;">
+<div id="modal2" class="modal" style="max-height: 25%">
+  <div class="modal-content" style="height: 100%">
     <div class="row">
       <h4>Modal Header</h4>
     </div>
-    
+
     <div class="row">
       <div class="col s12 m6">
         <div class="file-field input-field">
@@ -512,5 +519,4 @@
       </div>
     </div>
   </div>
-  
 </div>
