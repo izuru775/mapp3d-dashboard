@@ -1,6 +1,7 @@
 <div id="replace" class="row">
-  <% records.forEach(function(record){ %> <%-
-  include("./partials/editEnvironmentCard.ejs",{record:record}) %> <% }) %>
+  <% records.forEach(function(record){ %>
+    <%- include("./partials/editEnvironmentCard.ejs",{record:record}) %>
+      <% }) %>
 </div>
 
 <script>
@@ -8,21 +9,21 @@
     e.preventDefault();
     let id = $(this).attr('id');
     let obj_id = {
-        obj_id:id
+      obj_id: id
     }
     $.ajax({
       type: 'DELETE',
       url: '/api/deleteObject',
       data: obj_id,
-      success: (res)=>{
-          console.log(res)
-          location.reload();
+      success: (res) => {
+        console.log(res)
+        location.reload();
       },
       dataType: 'json',
     });
   });
   // Trigger Modal
-  document.addEventListener('DOMContentLoaded', function(e) {
+  document.addEventListener('DOMContentLoaded', function (e) {
     e.preventDefault();
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
@@ -44,67 +45,67 @@
     let rotation_y = $('#obj_rotation_y').val();
     let rotation_z = $('#obj_rotation_z').val();
 
-    let position = position_x.concat(" ",position_y," ",position_z)
-    let scale = scale_x.concat(" ",scale_y," ",scale_z)
-    let rotation = rotation_x.concat(" ",rotation_y," ",rotation_z)
+    let position = position_x.concat(" ", position_y, " ", position_z)
+    let scale = scale_x.concat(" ", scale_y, " ", scale_z)
+    let rotation = rotation_x.concat(" ", rotation_y, " ", rotation_z)
     let url = $('#obj_url').val();
 
-    let vrObject ={
-        name,
-        position,
-        scale,
-        rotation,
-        url
+    let vrObject = {
+      name,
+      position,
+      scale,
+      rotation,
+      url
     }
 
     let data = {
-        id,vrObject
+      id, vrObject
 
     }
     $.ajax({
       type: 'PUT',
       url: '/api/addObjects',
       data: data,
-      success: (res)=>{
-          console.log(res)
-          location.reload();
+      success: (res) => {
+        console.log(res)
+        location.reload();
       },
       dataType: 'json',
     });
-   
+
   });
-   // Update Object
-   $(document).on('click', '.waves-effect.waves-light.btn.update', function (e) {
+  // Update Object
+  $(document).on('click', '.waves-effect.waves-light.btn.update', function (e) {
     e.preventDefault();
     let id = $(this).attr('id');
-    
 
-    let name = $('#obj_name'+id).val();
-    let position_x = $('#obj_position_x'+id).val();
-    let position_y = $('#obj_position_y'+id).val();
-    let position_z = $('#obj_position_z'+id).val();
-    let scale_x = $('#obj_scale_x'+id).val();
-    let scale_y = $('#obj_scale_y'+id).val();
-    let scale_z = $('#obj_scale_z'+id).val();
-    let rotation_x = $('#obj_rotation_x'+id).val();
-    let rotation_y = $('#obj_rotation_y'+id).val();
-    let rotation_z = $('#obj_rotation_z'+id).val();
-    let url = $('#obj_url'+id).val();
 
-    let position = position_x.concat(" ",position_y," ",position_z)
-    let scale = scale_x.concat(" ",scale_y," ",scale_z)
-    let rotation = rotation_x.concat(" ",rotation_y," ",rotation_z)
-    
-    let vrObject ={
-        name,
-        position,
-        scale,
-        rotation,
-        url
+    let name = $('#obj_name' + id).val();
+    let position_x = $('#obj_position_x' + id).val();
+    let position_y = $('#obj_position_y' + id).val();
+    let position_z = $('#obj_position_z' + id).val();
+    let scale_x = $('#obj_scale_x' + id).val();
+    let scale_y = $('#obj_scale_y' + id).val();
+    let scale_z = $('#obj_scale_z' + id).val();
+    let rotation_x = $('#obj_rotation_x' + id).val();
+    let rotation_y = $('#obj_rotation_y' + id).val();
+    let rotation_z = $('#obj_rotation_z' + id).val();
+    let url = $('#obj_url' + id).val();
+
+    let position = position_x.concat(" ", position_y, " ", position_z)
+    let scale = scale_x.concat(" ", scale_y, " ", scale_z)
+    let rotation = rotation_x.concat(" ", rotation_y, " ", rotation_z)
+
+    let vrObject = {
+      name,
+      position,
+      scale,
+      rotation,
+      url
     }
     const env_id = <%- JSON.stringify(records[0]) %>._id;
-    let data ={
-        env_id,id,vrObject
+    let data = {
+      env_id, id, vrObject
     }
     console.log(env_id)
 
@@ -112,36 +113,68 @@
       type: 'PUT',
       url: '/api/updateObject',
       data: data,
-      success: (res)=>{
-          console.log(res)
-          // location.reload();
+      success: (res) => {
+        console.log(res)
+        // location.reload();
       },
       dataType: 'json',
     });
   });
   // Append obj url in modal
-  $(document).on('change','.browser-default.upload',function(){
-    $('#obj_url').attr('value',this.value)
-    
+  $(document).on('change', '.browser-default.upload', function () {
+    $('#obj_url').attr('value', this.value)
+
   })
-  $(document).on('change','.browser-default.update',function(){
+  $(document).on('change', '.browser-default.update', function () {
     let id = $(this).parent().siblings().last().children().children('input').attr('id')
     console.log(id)
-    $('#'+id).attr('value',this.value)
-   
-    
+    $('#' + id).attr('value', this.value)
+
+
   })
-  $(document).ready(function(){
+  $(document).ready(function () {
+    getObjects();
+  });
+
+  const getObjects =()=>{
     $.ajax({
-        url: "/aws/obj/list/",
-        type: 'GET',
-        dataType: 'json', // added data type
-        success: function(res) {
-            res.objects.forEach(element => {
-              $('.browser-default',).append(`<option value="${element.url}">${element.filename}</option>`)
-            });
-            
-        }
+      url: "/aws/obj/list/",
+      type: 'GET',
+      dataType: 'json', // added data type
+      success: function (res) {
+        res.objects.forEach(element => {
+          console.log(element.filename)
+          $('.browser-default',).append(`<option value="${element.url}">${element.filename}</option>`)
+        });
+
+      }
+    });
+  }
+
+
+
+  $(document).on('click', '.btn.waves-effect.waves-light.file', function (e) {
+    
+
+    let file = $("#file")[0].files[0]
+    console.log(file)
+    let formData = new FormData();
+    formData.append('file', file);
+    console.log(formData)
+    // SAving files in s3bucket and getting a url back
+    fetch('http://localhost:3001/aws/obj/upload/', {
+      method: 'POST',
+      body: formData,
     })
-  })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.errors) {
+          alert(data.errors);
+        } else {
+          let url = data.url;
+
+          location.reload();
+        }
+      });
+  });
 </script>

@@ -166,7 +166,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_position_x<%= object._id %>">position x</label>
+                            <label for="obj_position_x<%= object._id %>"
+                              >position x</label
+                            >
                           </div>
                         </div>
 
@@ -178,7 +180,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_position_y<%= object._id %>">position y</label>
+                            <label for="obj_position_y<%= object._id %>"
+                              >position y</label
+                            >
                           </div>
                         </div>
                         <div class="col">
@@ -189,7 +193,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_position_z<%= object._id %>">position z</label>
+                            <label for="obj_position_z<%= object._id %>"
+                              >position z</label
+                            >
                           </div>
                         </div>
 
@@ -207,7 +213,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_scale<%= object._id %>">scale x</label>
+                            <label for="obj_scale<%= object._id %>"
+                              >scale x</label
+                            >
                           </div>
                         </div>
                         <div class="col">
@@ -218,7 +226,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_scale<%= object._id %>">scale y</label>
+                            <label for="obj_scale<%= object._id %>"
+                              >scale y</label
+                            >
                           </div>
                         </div>
                         <div class="col">
@@ -229,7 +239,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_scale<%= object._id %>">scale z</label>
+                            <label for="obj_scale<%= object._id %>"
+                              >scale z</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -242,7 +254,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_rotation_x<%= object._id %>">rotation x</label>
+                            <label for="obj_rotation_x<%= object._id %>"
+                              >rotation x</label
+                            >
                           </div>
                         </div>
                         <div class="col">
@@ -253,7 +267,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_rotation_y<%= object._id %>">rotation y</label>
+                            <label for="obj_rotation_y<%= object._id %>"
+                              >rotation y</label
+                            >
                           </div>
                         </div>
                         <div class="col">
@@ -264,7 +280,9 @@
                               type="text"
                               class="validate"
                             />
-                            <label for="obj_rotation_z<%= object._id %>">rotation z</label>
+                            <label for="obj_rotation_z<%= object._id %>"
+                              >rotation z</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -283,9 +301,12 @@
                         <!-- Select objects -->
                         <label>Select Object</label>
                         <select class="browser-default update">
-                          <option value="" disabled selected>Choose your option</option>
+                          <option value="" disabled selected>
+                            Choose your option
+                          </option>
                         </select>
                       </div>
+                      
                     </div>
                     <div class="card-action">
                       <a
@@ -304,19 +325,25 @@
               </div>
 
               <% } )%>
-              <div class="card-action">
-                <a
+              <div class="card-action d-flex justify-content-center" >
+                <div class="d-flex justify-content-start col-5
+                ">
+                  <a
                   class="waves-effect waves-light btn modal-trigger"
                   href="#modal1"
-                  >Add Object</a
+                  >Add Object to environment</a
                 >
+                <div class="col-2"></div>
+                </div>
+                <div class="col-5 d-flex justify-content-end">
+                  <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Upload 3D Object</a>
+                </div>
+                
+                
               </div>
             </form>
 
             <!-- form ends here -->
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
           </div>
         </div>
       </div>
@@ -418,6 +445,26 @@
                 <option value="" disabled selected>Choose your option</option>
               </select>
             </div>
+            <!-- upload 3dObjects to the object list -->
+            <!-- <div class="row">
+              <div class="col s12 m6">
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>File</span>
+                    <input id="file" type="file" name="uploadFile" required />
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <a id="file_upload" class="btn waves-effect waves-light file"
+                  >Submit S3 Bucket</a
+                >
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -430,4 +477,33 @@
       >
     </div>
   </div>
+</div>
+<!-- Modal Structure to upload 3dmodels-->
+<div id="modal2" class="modal" style="max-height: 25%;">
+  <div class="modal-content" style="height: 100%;">
+    <div class="row">
+      <h4>Modal Header</h4>
+    </div>
+    
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>File</span>
+            <input id="file" type="file" name="uploadFile" required />
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <a id="file_upload" class="btn waves-effect waves-light file"
+          >Submit S3 Bucket</a
+        >
+      </div>
+    </div>
+  </div>
+  
 </div>

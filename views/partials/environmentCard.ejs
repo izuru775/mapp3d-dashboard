@@ -15,7 +15,14 @@
         <% } )%> -->
       </div>
       <div class="card-action">
-        <a id="<%= record._id %>"  href="/api/editEnvironment/<%= record._id %>" class="waves-effect waves-light btn edit">Edit</a>
+        <div class="col s12 m6">
+          <a id="<%= record._id %>"  href="/api/editEnvironment/<%= record._id %>" class="waves-effect waves-light btn edit">Edit</a>
+        </div>
+        <div class="col s12 m6">
+          <a id="<%= record._id %>"   class="waves-effect waves-light btn delete">Delete</a>
+        </div>
+        
+        
       </div>
     </div>
   </div>

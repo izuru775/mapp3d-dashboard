@@ -59,11 +59,14 @@
 
   uploadForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    let val = $('#file').val();
     let file = e.target.uploadFile.files[0];
 
+    console.log( file)
+    console.log(val)
     let formData = new FormData();
     formData.append('file', file);
-
+ console.log(formData)
     // SAving files in s3bucket and getting a url back
     fetch('http://localhost:3001/aws/env/upload/', {
       method: 'POST',

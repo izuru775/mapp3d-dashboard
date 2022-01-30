@@ -149,4 +149,20 @@
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
   });
+
+  $(document).on('click','.waves-effect.waves-light.btn.delete',function(){
+    let id =  $(this).attr('id');
+    let data ={id}
+    console.log(id)
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/deleteEnvironment',
+      data: data,
+      success: (res)=>{
+          console.log(res)
+          location.reload();
+      },
+      dataType: 'json',
+    });
+  })
 </script>
