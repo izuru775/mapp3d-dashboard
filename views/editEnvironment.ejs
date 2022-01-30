@@ -177,4 +177,52 @@
         }
       });
   });
+  // Update Envionment details
+  $(document).on('click','.btn.waves-effect.waves-light.upd_env',function(){
+    const id =<%- JSON.stringify(records) %>[0]._id;
+
+    const name = $('#name').val()
+    const creator =$('#creator').val()
+    const panorama =$('#panorama').val()
+    const preset = $('#preset').val()
+    const video =$('#video').val()
+    const skyColor =$('#skyColor').val()
+    const skyUrl =$('#skyUrl').val()
+    const floorColor =$('#floorColor').val()
+    const floorUrl = $('#floorUrl').val()
+
+    const skyAsset ={
+      color:skyColor,
+      url:skyUrl
+    }
+    const floorAsset ={
+      color:floorColor,
+      url:floorUrl
+    }
+    const environmentOptions ={
+      panorama,
+      preset,
+      video,
+      skyAsset,
+      floorAsset
+    }
+
+    const data ={
+      id:id,
+      envionmentName:name,
+      environmentCreator:creator,
+      environmentOptions,
+    }
+    $.ajax({
+      url: "/api/updateEnvironment",
+      type: 'PUT',
+      data: data,
+      dataType: 'json', // added data type
+      success: function (res) {
+        console.log(res)
+        location.reload();
+      }
+    });
+
+  });
 </script>

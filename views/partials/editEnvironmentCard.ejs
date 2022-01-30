@@ -11,7 +11,7 @@
                 <div class="input-field col s12">
                   <input
                     value="<%= record.environmentName %>"
-                    id="disabled"
+                    id="name"
                     type="text"
                     class="validate"
                   />
@@ -134,11 +134,18 @@
                         </div>
                       </div>
                       <!-- Sky Assets ends here  -->
+                      <div class="d-flex justify-content-center">
+                        <a id="" class="btn waves-effect waves-light upd_env"
+                          >Update Environment Details</a
+                        >
+                      </div>
                     </div>
-                  </div>
+                    
+                  </div>                  
                 </div>
               </div>
               <!-- Environment Options ends here -->
+              
 
               <% record._vrObject.forEach(object=>{ %>
               <div class="row">
