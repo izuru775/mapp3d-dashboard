@@ -44,6 +44,35 @@
               </div>
             </div>
             <div class="row">
+              <!-- Select objects -->
+              <label>Select a preset</label>
+              <select id="preset_select" class="preset browser-default ">
+                <option value="" disabled selected>
+                  Choose your option
+                </option>
+                <option value="none">none</option>
+                <option value="default">default</option>
+                <option value="contact">contact</option>
+                <option value="egypt">egypt</option>
+                <option value="checkerboard">checkerboard</option>
+                <option value="forest">Forest</option>
+                <option value="goaland">goaland</option>
+                <option value="yavapai">yavapai</option>
+                <option value="goldmine">goldmine</option>
+                <option value="threetowers">threetowers</option>
+                <option value="poison">poison</option>
+                <option value="arches">arches</option>
+                <option value="tron">tron</option>
+                <option value="japan">japan</option>
+                <option value="dream">dream</option>
+                <option value="volcano">volcano</option>
+                <option value="osiris">starry</option>
+                <option value="forest">osiris</option>
+                <option value="moon">moon</option>
+                
+              </select>
+            </div>
+            <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_video" type="text" class="validate">
                 <label for="env_op_video">video</label>
@@ -193,5 +222,10 @@
 
   $(document).on('change', '.browser-default.update', function () {
     $('#env_op_video').attr('value', this.value)
+  })
+
+  $(document).on('change', '#preset_select', function () {
+    $('#env_op_preset').attr('value', this.value)
+
   })
 </script>

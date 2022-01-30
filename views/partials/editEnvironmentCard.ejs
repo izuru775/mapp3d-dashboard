@@ -58,6 +58,35 @@
                         </div>
                       </div>
                       <div class="row">
+                        <!-- Select objects -->
+                        <label>Select a preset</label>
+                        <select id="preset_select" class="preset browser-default ">
+                          <option value="" disabled selected>
+                            Choose your option
+                          </option>
+                          <option value="none">none</option>
+                          <option value="default">default</option>
+                          <option value="contact">contact</option>
+                          <option value="egypt">egypt</option>
+                          <option value="checkerboard">checkerboard</option>
+                          <option value="forest">Forest</option>
+                          <option value="goaland">goaland</option>
+                          <option value="yavapai">yavapai</option>
+                          <option value="goldmine">goldmine</option>
+                          <option value="threetowers">threetowers</option>
+                          <option value="poison">poison</option>
+                          <option value="arches">arches</option>
+                          <option value="tron">tron</option>
+                          <option value="japan">japan</option>
+                          <option value="dream">dream</option>
+                          <option value="volcano">volcano</option>
+                          <option value="osiris">starry</option>
+                          <option value="forest">osiris</option>
+                          <option value="moon">moon</option>
+                          
+                        </select>
+                      </div>
+                      <div class="row">
                         <div class="input-field col s6">
                           <input
                             value="<%= record.environmentOptions.video %>"
@@ -71,7 +100,7 @@
                       <div class="row">
                         <!-- Select objects -->
                         <label>Select Object</label>
-                        <select class="browser-default video">
+                        <select id="video_select" class="browser-default models">
                           <option value="" disabled selected>
                             Choose your option
                           </option>
@@ -314,7 +343,7 @@
                       <div class="row">
                         <!-- Select objects -->
                         <label>Select Object</label>
-                        <select class="browser-default update">
+                        <select id="" class="browser-default models update">
                           <option value="" disabled selected>
                             Choose your option
                           </option>
@@ -455,7 +484,7 @@
             <div class="row">
               <!-- Select objects -->
               <label>Select Object</label>
-              <select class="browser-default upload">
+              <select id="3dobj_select" class="browser-default models upload">
                 <option value="" disabled selected>Choose your option</option>
               </select>
             </div>

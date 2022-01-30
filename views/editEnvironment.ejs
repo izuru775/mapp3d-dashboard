@@ -121,7 +121,7 @@
     });
   });
   // Append obj url in modal
-  $(document).on('change', '.browser-default.upload', function () {
+  $(document).on('change', '#3dobj_select', function () {
     $('#obj_url').attr('value', this.value)
 
   })
@@ -144,7 +144,7 @@
       success: function (res) {
         res.objects.forEach(element => {
           console.log(element.filename)
-          $('.browser-default',).append(`<option value="${element.url}">${element.filename}</option>`)
+          $('.browser-default.models',).append(`<option value="${element.url}">${element.filename}</option>`)
         });
 
       }
@@ -226,8 +226,12 @@
 
   });
 
-  $(document).on('change', '.browser-default.video', function () {
+  $(document).on('change', '#video_select', function () {
     $('#video').attr('value', this.value)
+
+  })
+  $(document).on('change', '#preset_select', function () {
+    $('#preset').attr('value', this.value)
 
   })
 </script>
