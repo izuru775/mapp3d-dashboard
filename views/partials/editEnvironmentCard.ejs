@@ -6,7 +6,7 @@
         <div class="card brown lighten-5">
           <div class="card-content">
             <!-- form starts here -->
-            <form class="col s12">
+            <form class="col s12 ">
               <div class="row white-text">
                 <div class="input-field col s12">
                   <input
@@ -30,7 +30,7 @@
                 </div>
               </div>
               <!-- Environment Options stats here -->
-              <div class="row">
+              <div class="row main-form">
                 <div class="col s12 m6">
                   <div class="card brown lighten-4">
                     <div class="card-content white-text">
@@ -46,7 +46,7 @@
                           <label for="panorama">Panorama</label>
                         </div>
                       </div>
-                      <div class="row">
+                      <div class="row pano-hide">
                         <div class="input-field col s6">
                           <input
                             value="<%= record.environmentOptions.preset %>"
@@ -57,7 +57,7 @@
                           <label for="preset">preset</label>
                         </div>
                       </div>
-                      <div class="row">
+                      <div class="row pano-hide">
                         <!-- Select objects -->
                         <label>Select a preset</label>
                         <select id="preset_select" class="preset browser-default ">
@@ -86,7 +86,7 @@
                           
                         </select>
                       </div>
-                      <div class="row">
+                      <div class="row ">
                         <div class="input-field col s6">
                           <input
                             value="<%= record.environmentOptions.video %>"
@@ -107,23 +107,23 @@
                         </select>
                       </div>
                       <!-- Floor Assets starts here -->
-                      <div class="row">
+                      <div class="row pano-hide">
                         <div class="col s12 m6">
                           <div class="card brown lighten-3">
                             <div class="card-content white-text">
                               <span class="card-title">Sky Assets</span>
                               <div class="row">
-                                <div class="input-field col s6">
+                                <div class=" col s6">
                                   <input
                                     value="<%= record.environmentOptions.skyAsset.color %>"
                                     id="skyColor"
-                                    type="text"
+                                    type="color"
                                     class="validate"
                                   />
                                   <label for="skyColor">sky color</label>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row ">
                                 <div class="input-field col s6">
                                   <input
                                     value="<%= record.environmentOptions.skyAsset.url %>"
@@ -140,23 +140,23 @@
                       </div>
                       <!-- Floor Assets ends here -->
                       <!-- Sky Assets starts here  -->
-                      <div class="row">
+                      <div class="row pano-hide">
                         <div class="col s12 m6">
                           <div class="card brown lighten-3">
                             <div class="card-content white-text">
                               <span class="card-title">Floor Assets</span>
                               <div class="row">
-                                <div class="input-field col s6">
+                                <div class=" col s6">
                                   <input
                                     value="<%= record.environmentOptions.floorAsset.color %>"
                                     id="floorColor"
-                                    type="text"
+                                    type="color"
                                     class="validate"
                                   />
                                   <label for="floorColor">floor color</label>
                                 </div>
                               </div>
-                              <div class="row">
+                              <div class="row remove">
                                 <div class="input-field col s6">
                                   <input
                                     value="<%= record.environmentOptions.floorAsset.url %>"

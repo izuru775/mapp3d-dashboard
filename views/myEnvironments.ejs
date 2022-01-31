@@ -32,19 +32,55 @@
               </div>
             </div>
             <div class="row">
+              <div class="col">
+                <p>
+                  <label>
+                    <input name="group1" value="panorama" type="radio" class="radio" checked />
+                    <span>panorama</span>
+                  </label>
+                </p>
+              </div>
+              <div class="col">
+                <p>
+                  <label>
+                    <input name="group1" value="preset" type="radio" class="radio" checked />
+                    <span>preset</span>
+                  </label>
+                </p>
+              </div>
+              <div class="col">
+                <p>
+                  <label>
+                    <input name="group1" value="image" type="radio" class="radio" checked />
+                    <span>360 image</span>
+                  </label>
+                </p>
+              </div>
+              <div class="col">
+                <p>
+                  <label>
+                    <input name="group1" value="default" type="radio" class="radio" checked />
+                    <span>default</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            <div class="attach" id="attach"></div>
+            <div class="row env_pano" >
               <div class="input-field col s6">
                 <input value="" id="env_op_pano" type="text" class="validate">
                 <label for="env_op_pano">Panoram</label>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_preset" type="text" class="validate">
                 <label for="env_op_preset">preset</label>
               </div>
-            </div>
-            <div class="row">
-              <!-- Select objects -->
+            </div> -->
+            <!-- Select objects -->
+            <!-- <div class="row">
+              
               <label>Select a preset</label>
               <select id="preset_select" class="preset browser-default ">
                 <option value="" disabled selected>
@@ -71,44 +107,44 @@
                 <option value="moon">moon</option>
                 
               </select>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_video" type="text" class="validate">
                 <label for="env_op_video">video</label>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <select class="browser-default update">
                 <option value="" disabled selected>
                   Choose Video
                 </option>
               </select>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_floor_color" type="text" class="validate">
                 <label for="env_op_floor_color">floor color</label>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_floor_url" type="text" class="validate">
                 <label for="env_op_floor_url">floor url</label>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_sky_color" type="text" class="validate">
                 <label for="env_op_sky_color">sky color</label>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="input-field col s6">
                 <input value="" id="env_op_sky_url" type="text" class="validate">
                 <label for="env_op_sky_url">sky url</label>
               </div>
-            </div>
+            </div> -->
             
             
           </div>
@@ -201,9 +237,7 @@
     });
   })
 
-  $(document).ready(function () {
-    getObjects();
-  });
+ 
 
   const getObjects =()=>{
     $.ajax({
@@ -227,5 +261,104 @@
   $(document).on('change', '#preset_select', function () {
     $('#env_op_preset').attr('value', this.value)
 
+
+    
   })
+  $(document).on('click','.radio',()=>{
+    let val =$( "input:checked" ).val()
+    switch (val) {
+      case 'panorama':
+        $('#attach').html(`<div class="row">
+              <div class="input-field col s6">
+                <input value="" id="env_op_video" type="text" class="validate">
+                <label for="env_op_video">video</label>
+              </div>
+            </div><div class="row">
+              <select class="browser-default update">
+                <option value="" disabled selected>
+                  Choose Video
+                </option>
+              </select>
+            </div>`)
+            getObjects();
+            $('#env_op_pano').attr('value','false');
+            
+
+        
+        break;
+         case 'preset':
+           $('#attach').html(`<div class="row">
+              <div class="input-field col s6">
+                <input value="" id="env_op_preset" type="text" class="validate">
+                <label for="env_op_preset">preset</label>
+              </div>
+            </div>
+            <div class="row">
+              
+              <label>Select a preset</label>
+              <select id="preset_select" class="preset browser-default ">
+                <option value="" disabled selected>
+                  Choose your option
+                </option>
+                <option value="none">none</option>
+                <option value="default">default</option>
+                <option value="contact">contact</option>
+                <option value="egypt">egypt</option>
+                <option value="checkerboard">checkerboard</option>
+                <option value="forest">Forest</option>
+                <option value="goaland">goaland</option>
+                <option value="yavapai">yavapai</option>
+                <option value="goldmine">goldmine</option>
+                <option value="threetowers">threetowers</option>
+                <option value="poison">poison</option>
+                <option value="arches">arches</option>
+                <option value="tron">tron</option>
+                <option value="japan">japan</option>
+                <option value="dream">dream</option>
+                <option value="volcano">volcano</option>
+                <option value="osiris">starry</option>
+                <option value="forest">osiris</option>
+                <option value="moon">moon</option>
+                
+              </select>
+            </div>`)
+            $('#env_op_pano').attr('value','false');
+           
+            break;
+            case 'image':
+              $('#attach').html(`<div class="row">
+              <div class="input-field col s6">
+                <input value="" id="env_op_sky_url" type="text" class="validate">
+                <label for="env_op_sky_url">sky url</label>
+              </div>
+            </div>`)
+            $('#env_op_pano').attr('value','true');
+            
+            break;
+            case 'default':
+              $('#attach').html(`<div class="row">
+              <div class="input-field col s6">
+                <input value="" id="env_op_floor_color" type="text" class="validate">
+                <label for="env_op_floor_color">floor color</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input value="" id="env_op_sky_color" type="text" class="validate">
+                <label for="env_op_sky_color">sky color</label>
+              </div>
+            </div>`)
+            $('#env_op_pano').attr('value','false');
+            
+            break;
+      default:
+        break;
+    }
+
+    
+})
+$(document).ready(function () {
+    getObjects();
+    $('.env_pano').hide();
+  });
 </script>

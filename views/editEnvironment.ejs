@@ -234,4 +234,18 @@
     $('#preset').attr('value', this.value)
 
   })
+  
+  $(document).on('click', '.filled-in', function (e) {
+    let val = $("input:checked").val()
+    console.log(val)
+  })
+
+
+  window.onload = (event) => {
+  remove();
+};
+
+const remove=()=>{
+  $('.remove').detach();
+}
 </script>

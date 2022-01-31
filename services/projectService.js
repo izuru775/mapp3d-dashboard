@@ -98,6 +98,7 @@ const updateEnvironmentService = (req, res) => {
     environmentCreator,
     environmentOptions,
   } = req.body;
+  console.log(req.body);
   Models.VR.findByIdAndUpdate(
     { _id: id },
     {

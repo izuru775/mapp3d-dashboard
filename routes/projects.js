@@ -145,7 +145,7 @@ router.delete('/deleteEnvironment', (req, res) => {
 
 router.put('/updateObject', (req, res) => {
   let { env_id,id, vrObject } = req.body;
-  console.log(id)
+  console.log(req.body)
   Models.VR.updateOne(
     { 'vrObject._id': id },
     {
