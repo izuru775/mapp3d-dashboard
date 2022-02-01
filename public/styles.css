@@ -24,3 +24,6 @@ footer {
 #mainScene{
   min-height: 50vh;
 }
+.hidden{
+  display: none;
+}

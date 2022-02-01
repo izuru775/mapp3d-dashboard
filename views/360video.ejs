@@ -14,38 +14,49 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <!-- Aframe environment component -->
 <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+<style>
+  a-scene {
+  height: 300px;
+  width: 600px;
+}
+</style>
+<div class="row">
+  <div class="col-6"></div>
+  <div class="col-6">
+    <a-scene embedded>
+      <a-assets>
+        <!--
+        SOURCE
+        Author: Bitmovin
+        URL:    https://bitmovin.com/demos/vr-360
+        -->
+        <video id="video"
+               autoplay loop
+               crossorigin="anonymous"
+               playsinline webkit-playsinline
+               src="https://vespascooter.s3.ap-southeast-2.amazonaws.com/360_VR+Master+Series+_+Free+Download+_+Crystal+Shower+Falls.mp4">
+        </video>
+      </a-assets>
+      <a-videosphere
+        rotation="0 -90 0" src="#video"
+        play-on-click>
+      </a-videosphere>
+  
+      <a-camera>
+        <a-entity
+          position="0 0 -1.5"
+          text="align:center;
+                width:6;
+                wrapCount:100;
+                color: white;
+                value: Click or tap to start video"
+          hide-on-play="#video">
+        </a-entity>
+      </a-camera>
+    </a-scene>
+  </div>
+</div>
 
-<a-scene>
-    <a-assets>
-      <!--
-      SOURCE
-      Author: Bitmovin
-      URL:    https://bitmovin.com/demos/vr-360
-      -->
-      <video id="video"
-             autoplay loop
-             crossorigin="anonymous"
-             playsinline webkit-playsinline
-             src="https://vespascooter.s3.ap-southeast-2.amazonaws.com/360_VR+Master+Series+_+Free+Download+_+Crystal+Shower+Falls.mp4">
-      </video>
-    </a-assets>
-    <a-videosphere
-      rotation="0 -90 0" src="#video"
-      play-on-click>
-    </a-videosphere>
-
-    <a-camera>
-      <a-entity
-        position="0 0 -1.5"
-        text="align:center;
-              width:6;
-              wrapCount:100;
-              color: white;
-              value: Click or tap to start video"
-        hide-on-play="#video">
-      </a-entity>
-    </a-camera>
-  </a-scene>
   <script>
       /* global AFRAME */
 AFRAME.registerComponent('play-on-click', {

@@ -1,10 +1,150 @@
-<div id="replace" class="row">
-  <% records.forEach(function(record){ %>
-    <%- include("./partials/editEnvironmentCard.ejs",{record:record}) %>
-      <% }) %>
+<script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+<style>
+  a-scene {
+  height: 100%;
+  width: 100%;
+}
+</style>
+<div id='main1' class="row">
+  <div id="replace" class="col">
+   
+      <% records.forEach(function(record){ %>
+        <%- include("./partials/editEnvironmentCard.ejs",{record:record}) %>
+          <% }) %>
+
+    
+  </div>
+    
 </div>
 
 <script>
+     /* global AFRAME */
+     AFRAME.registerComponent('play-on-click', {
+        init: function () {
+          this.onClick = this.onClick.bind(this);
+        },
+        play: function () {
+          window.addEventListener('click', this.onClick);
+        },
+        pause: function () {
+          window.removeEventListener('click', this.onClick);
+        },
+        onClick: function (evt) {
+          var videoEl = this.el.getAttribute('material').src;
+          if (!videoEl) { return; }
+          this.el.object3D.visible = true;
+          videoEl.play();
+        }
+      });
+
+  var env =<%- JSON.stringify(records) %>[0];
+  console.log(env)
+  
+  // Preview function
+  const createWorld = function (environment, options) {
+    _objectCreator = function (vrObject) {
+      let tAsset = $(
+        `<a-asset-item  id="${vrObject.name}" src="${vrObject.url}"></a-asset-item>`
+      );
+      $("#assets").append(tAsset);
+      let tEntity = $(
+        `<a-entity scale="${vrObject._scale}" rotation="${vrObject._rotation}" position="${vrObject._position}" gltf-model="#${vrObject.name}"></a-entity>`
+      );
+      $("#mainScene").append(tEntity);
+
+      // document
+      //   .querySelector("a-entity")
+      //   .addEventListener("click", function (evt) {
+      //     console.log("This A-Frame entity collided with another entity!");
+      //   });
+    }
+
+    _videoSceneCreator = function (videoOptions) {
+      let videoAsset = $(
+        `<video id="video"
+             autoplay loop
+             crossorigin="anonymous"
+             playsinline webkit-playsinline
+             src="${videoOptions}">
+      </video>`)
+      $("#assets").append(videoAsset);
+
+      let videoSphere = $(`<a-videosphere
+      rotation="0 -90 0" src="#video"
+      play-on-click>
+    </a-videosphere>`)
+
+      $("#mainScene").append(videoSphere);
+
+      let videoEntity =$(`<a-entity
+        position="0 0 -1.5"
+        text="align:center;
+              width:6;
+              wrapCount:100;
+              color: white;
+              value: Click or tap to start video"
+        hide-on-play="#video">
+      </a-entity>`);
+      $('#cam').append(videoEntity)
+    
+    }
+
+
+
+
+    /// SETUP THE WORLD
+    if (options.preset) {
+      document.getElementById('mainScene').setAttribute('environment', `preset:${options.preset}`)
+      if(environment._vrObject){
+        environment._vrObject.forEach(vrObject => {
+        _objectCreator(vrObject)
+      })
+      }
+      
+    } else if (options.video) {
+
+      _videoSceneCreator(options.video)
+    } else if (options.panorama) {
+
+      let skyAsset = $(`<a-sky id="sky" src="${options.skyAsset.url}" rotation="0 -130 0"></a-sky>`)
+      $("#mainScene").append(skyAsset);
+
+    } else {
+      let skyAsset = $(
+        `<a-sky id="sky" color="${options.skyAsset.color}"></a-sky>`
+      );
+      let planeAsset = $(
+        `<a-plane id="plane"  position="0 0 -4"
+        rotation="-90 0 0"
+        scale="100 100 100"
+        width="100"
+        height="100"
+        color="${options.floorAsset.color}"></a-plane>`
+
+      );
+      $("#mainScene").append(skyAsset);
+      $("#mainScene").append(planeAsset);
+
+      // POPULATE THE WORLD
+      console.log(typeof environment._vrObject)
+      console.log( environment._vrObject)
+
+
+      if(environment._vrObject){
+        console.log("I'm here")
+        environment._vrObject.forEach(vrObject => {
+        _objectCreator(vrObject)
+      })
+      }
+
+    }
+
+  }
+  // End of preview function
+
+  
+
+
   $(document).on('click', '.waves-effect.waves-light.btn.delete', function (e) {
     e.preventDefault();
     let id = $(this).attr('id');
@@ -161,7 +301,7 @@
     let formData = new FormData();
     formData.append('file', file);
     console.log(formData)
-    // SAving files in s3bucket and getting a url back
+    // Saving files in s3bucket and getting a url back
     fetch('http://localhost:3001/aws/obj/upload/', {
       method: 'POST',
       body: formData,
@@ -248,4 +388,51 @@
 const remove=()=>{
   $('.remove').detach();
 }
+
+const preview =()=>{
+    
+  createWorld(env, env.environmentOptions)
+    
+}
+
+$(document).on('click', '#preview', function (e) {
+  e.preventDefault();
+  const scene =$(`<div id="scene" class="col-6" >
+    
+    <a-scene id="mainScene" embedded background="color:black">
+  <a-assets id="assets"> </a-assets>
+  <a-camera position="0 1.6 0"></a-camera>
+</a-scene>
+  
+    
+  </div>`);
+  
+
+    $('.toggle').toggle()
+    $('#margin-left').siblings('#center').toggleClass('col-8')
+   
+
+    if($('#scene').attr('class')==undefined){
+      scene.appendTo('#main1')
+      
+      
+      // Calling preview function
+      preview();
+      
+    }else{
+      $('#scene').detach();
+      
+    }
+    $('#preview').text(function(i, text){
+          return text === "preview" ? "end preview" : "preview";
+      })
+
+
+    if($('#replace').attr('class')=="col"){
+      $('#replace').attr('class','col-6')
+    }else{
+      $('#replace').attr('class','col')
+    }
+  
+  })
 </script>
