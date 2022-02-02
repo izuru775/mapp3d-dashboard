@@ -203,14 +203,14 @@ router.get('/editEnvironment/:id', (req, res) => {
         vrObject.forEach((element) => {
           const { _id, name, position, scale, rotation, url } = element;
 
-          let [x, y, z] = position.split(' ');
-          const _position = new Array(x, y, z);
+          let [x,y,z] = position.split(' ');
+          const _position = new Array(x,y,z);
 
-          let [x1, y1, z1] = scale.split(' ');
-          const _scale = new Array(x1, y1, z1);
+          let [x1,y1,z1] = scale.split(' ');
+          const _scale = new Array(x1,y1,z1);
 
-          let [x2, y2, z2] = rotation.split(' ');
-          const _rotation = new Array(x2, y2, z2);
+          let [x2,y2,z2] = rotation.split(' ');
+          const _rotation = new Array(x2,y2,z2);
           let obj = { _id, name, _position, _scale, _rotation, url };
           _vrObject.push(obj);
         });

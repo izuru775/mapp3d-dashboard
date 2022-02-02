@@ -43,12 +43,13 @@
   // Preview function
   const createWorld = function (environment, options) {
     _objectCreator = function (vrObject) {
+      console.log(vrObject._position)
       let tAsset = $(
         `<a-asset-item  id="${vrObject.name}" src="${vrObject.url}"></a-asset-item>`
       );
       $("#assets").append(tAsset);
       let tEntity = $(
-        `<a-entity scale="${vrObject._scale}" rotation="${vrObject._rotation}" position="${vrObject._position}" gltf-model="#${vrObject.name}"></a-entity>`
+        `<a-entity scale="${vrObject._scale[0]} ${vrObject._scale[1]} ${vrObject._scale[2]}" rotation="${vrObject._rotation[0]} ${vrObject._rotation[1]} ${vrObject._rotation[2]}" position="${vrObject._position[0]} ${vrObject._position[1]} ${vrObject._position[2]}" gltf-model="#${vrObject.name}"></a-entity>`
       );
       $("#mainScene").append(tEntity);
 
@@ -97,6 +98,7 @@
       document.getElementById('mainScene').setAttribute('environment', `preset:${options.preset}`)
       if(environment._vrObject){
         environment._vrObject.forEach(vrObject => {
+          console.log(vrObject)
         _objectCreator(vrObject)
       })
       }
@@ -133,6 +135,7 @@
       if(environment._vrObject){
         console.log("I'm here")
         environment._vrObject.forEach(vrObject => {
+          
         _objectCreator(vrObject)
       })
       }
@@ -185,9 +188,9 @@
     let rotation_y = $('#obj_rotation_y').val();
     let rotation_z = $('#obj_rotation_z').val();
 
-    let position = position_x.concat(" ", position_y, " ", position_z)
-    let scale = scale_x.concat(" ", scale_y, " ", scale_z)
-    let rotation = rotation_x.concat(" ", rotation_y, " ", rotation_z)
+    let position = position_x.concat(" ",position_y," ",position_z)
+    let scale = scale_x.concat(" ",scale_y," ",scale_z)
+    let rotation = rotation_x.concat(" ",rotation_y," ",rotation_z)
     let url = $('#obj_url').val();
 
     let vrObject = {
@@ -232,9 +235,9 @@
     let rotation_z = $('#obj_rotation_z' + id).val();
     let url = $('#obj_url' + id).val();
 
-    let position = position_x.concat(" ", position_y, " ", position_z)
-    let scale = scale_x.concat(" ", scale_y, " ", scale_z)
-    let rotation = rotation_x.concat(" ", rotation_y, " ", rotation_z)
+    let position = position_x.concat(" ",position_y," ",position_z)
+    let scale = scale_x.concat(" ",scale_y," ",scale_z)
+    let rotation = rotation_x.concat(" ",rotation_y," ",rotation_z)
 
     let vrObject = {
       name,
